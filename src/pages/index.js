@@ -1,5 +1,13 @@
 import * as React from 'react';
 
-const IndexPage = () => <h1>Hello world</h1>;
+import GlobalStyleProvider from 'styles/globalStyles';
+
+import TopBarMobile from 'components/TopBarMobile';
+
+const IndexPage = () => (
+  <GlobalStyleProvider>
+    <TopBarMobile />
+  </GlobalStyleProvider>
+);
 
 export default IndexPage;

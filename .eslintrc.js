@@ -24,5 +24,13 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'import/prefer-default-export': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+      },
+    },
   },
 };

@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   siteMetadata: {
     title: 'ArtistBlog',
@@ -44,6 +46,14 @@ module.exports = {
             cache: true,
           },
         },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-root-import',
+      options: {
+        src: path.join(__dirname, 'src'),
+        styles: path.join(__dirname, 'src/styles'),
+        components: path.join(__dirname, 'src/components'),
       },
     },
   ],
