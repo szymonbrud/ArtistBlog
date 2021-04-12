@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import DeviceViewContext from 'context';
+
+import Logo from 'components/Logo';
+
+import loupeSvg from 'images/loupe.svg';
 
 import {
   Wrapper,
   BurgerWrapper,
-  OneLetterInName,
   Burger,
   BurgerItem,
+  SearchIcon,
+  SearchWrapper,
 } from './styles';
 
-const TopBarMobile = () => (
-  <Wrapper>
-    <p>
-      <OneLetterInName>B</OneLetterInName>rudplast
-    </p>
-    <BurgerWrapper>
-      <Burger>
-        <BurgerItem />
-        <BurgerItem />
-        <BurgerItem />
-      </Burger>
-    </BurgerWrapper>
-  </Wrapper>
-);
+const TopBarMobile = () => {
+  const devicesContext = useContext(DeviceViewContext);
+
+  const topBarPaddingLeft =
+    devicesContext.deviceType === 'tablet' && (devicesContext.width - 674) / 2;
+
+  return (
+    <Wrapper paddingLeft={topBarPaddingLeft}>
+      <Logo />
+      <BurgerWrapper>
+        <Burger>
+          <BurgerItem />
+          <BurgerItem />
+          <BurgerItem />
+        </Burger>
+      </BurgerWrapper>
+      <SearchWrapper>
+        <SearchIcon src={loupeSvg} />
+      </SearchWrapper>
+    </Wrapper>
+  );
+};
 
 export default TopBarMobile;

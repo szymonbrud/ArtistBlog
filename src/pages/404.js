@@ -1,5 +1,13 @@
 import * as React from 'react';
 
-const NotFoundPage = () => <h1>404</h1>;
+import GlobalStylesProvider from 'styles/globalStyles';
+
+import Template404 from 'templates/404Template';
+
+const NotFoundPage = () => (
+  <GlobalStylesProvider>
+    <Template404 />
+  </GlobalStylesProvider>
+);
 
 export default NotFoundPage;

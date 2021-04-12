@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import media from 'styles/media';
 
 export const Wrapper = styled.nav`
   height: 90px;
@@ -9,6 +10,12 @@ export const Wrapper = styled.nav`
   font-family: 'Rosarivo', serif;
   font-size: 18px;
   padding: 0 0 0 32px;
+
+  ${({ paddingLeft }) =>
+    paddingLeft &&
+    css`
+      padding-left: ${paddingLeft}px;
+    `}
 `;
 
 export const BurgerWrapper = styled.div`
@@ -18,11 +25,9 @@ export const BurgerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-export const OneLetterInName = styled.span`
-  font-size: 26px;
-  font-family: 'Roboto', serif;
+  position: fixed;
+  right: 0;
+  top: 0;
 `;
 
 export const Burger = styled.ul`
@@ -45,4 +50,24 @@ export const BurgerItem = styled.li`
   :first-child {
     margin-top: 0px;
   }
+`;
+
+export const SearchWrapper = styled.div`
+  display: none;
+
+  ${media.tablet`
+    width: 90px;
+    height: 90px;
+    background-color: ${({ theme }) => theme.colors.background_dark_categories};
+    position: fixed;
+    right: 90px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `}
+`;
+
+export const SearchIcon = styled.img`
+  width: 17px;
 `;

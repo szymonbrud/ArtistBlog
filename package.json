@@ -8,7 +8,8 @@
     "gatsby"
   ],
   "scripts": {
-    "develop": "gatsby develop",
+    "devP": "gatsby develop -H 192.168.8.100 -p 8000",
+    "dev": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
