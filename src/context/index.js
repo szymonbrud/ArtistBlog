@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import propTypes, { element } from 'prop-types';
 
+import debounce from 'lodash.debounce';
+
 const devicesSizes = [360, 834, 1440, 1920];
 
 const defaultContext = {
@@ -39,7 +41,7 @@ export const DeviceViewContextProvider = ({ children }) => {
     setAllDiviceSettings();
   }, []);
 
-  window.addEventListener('resize', setAllDiviceSettings);
+  window.addEventListener('resize', debounce(setAllDiviceSettings, 150));
 
   return (
     <DeviceViewContext.Provider value={context}>

@@ -41,4 +41,16 @@ export const GridWrapper = styled.div`
     grid-gap: 60px;
     padding: 127px 0 0;
   `};
+
+  ${media.smallDesktop`
+    grid-gap: 136px;
+    grid-template-columns: 416px 416px;
+    justify-content: flex-start;
+    padding: ${({ marginForLeft }) => `202px 0 0 ${marginForLeft}px`}
+  `}
+
+  ${media.largeDesktop`
+    justify-content: center;
+    padding: 202px 0 0 0;
+    `}
 `;

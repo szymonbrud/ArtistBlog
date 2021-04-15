@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import GlobalStyleProvider from 'styles/globalStyles';
@@ -7,6 +7,9 @@ import TopBarMobile from 'components/TopBarMobile';
 import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
 import Footer from 'components/Footer';
+import TopBarDesktop from 'components/TopBarDesktop';
+
+import DeviceViewContext from 'context';
 
 import {
   PostWrapper,
@@ -46,11 +49,23 @@ const HeroTemplate = () => {
     swapi: { posts, galleries },
   } = useStaticQuery(pageQuery);
 
+  const deviceContext = useContext(DeviceViewContext);
+
+  let marginForLeft = null;
+
+  if (deviceContext.deviceType === 'smallDesktop') {
+    marginForLeft =
+      (deviceContext.width - 968) / 2 <= 305
+        ? 302
+        : (deviceContext.width - 968) / 2;
+  }
+
   return (
     <GlobalStyleProvider>
       <>
         <TopBarMobile />
-        <GridWrapper>
+        <TopBarDesktop />
+        <GridWrapper marginForLeft={marginForLeft}>
           <PostWrapper>
             <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
             {posts.map((post) => (

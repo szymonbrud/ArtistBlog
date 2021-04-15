@@ -16,6 +16,10 @@ export const Wrapper = styled.nav`
     css`
       padding-left: ${paddingLeft}px;
     `}
+
+  ${media.smallDesktop`
+    display: none;
+  `}
 `;
 
 export const BurgerWrapper = styled.div`
