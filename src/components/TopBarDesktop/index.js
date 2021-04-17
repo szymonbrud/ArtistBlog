@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
+import { Link } from 'gatsby';
 
 import loupeSvg from 'images/loupe.svg';
 
 import DeviceViewContext from 'context';
 
 import Logo from 'components/Logo';
+import SwitchThemeButton from 'components/SwitchThemeButton';
 
 import {
   LogoWrapper,
@@ -19,7 +21,20 @@ import {
   SwitchThemeWrapper,
 } from './styles';
 
-const menuElements = ['Posty', 'Sztuka', 'kontakt'];
+const menuElements = [
+  {
+    title: 'Posty',
+    link: '/posts',
+  },
+  {
+    title: 'Sztuka',
+    link: '/images',
+  },
+  {
+    title: 'Kontakt',
+    link: '/contact',
+  },
+];
 
 const TopBarDesktop = () => {
   const deviceContext = useContext(DeviceViewContext);
@@ -38,24 +53,22 @@ const TopBarDesktop = () => {
 
   return (
     <MainWrapper>
-      <LogoWrapper marginWidth={marginForLogo}>
-        <Logo />
-      </LogoWrapper>
+      <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+        <LogoWrapper marginWidth={marginForLogo}>
+          <Logo />
+        </LogoWrapper>
+      </Link>
       <MenuWrapper>
-        {menuElements.map((menuText) => (
-          <MenuItems key={menuText} marginLeftSize={marginLeft}>
-            {menuText}
+        {menuElements.map(({ title, link }) => (
+          <MenuItems key={link} marginLeftSize={marginLeft} to={link}>
+            {title}
           </MenuItems>
         ))}
         <Line />
         <SearchWrapper>
           <SearchIcon src={loupeSvg} alt="search" />
         </SearchWrapper>
-        <SwitchThemeWrapper>
-          <SwitchButtonWrapper>
-            <CircleInsideButton />
-          </SwitchButtonWrapper>
-        </SwitchThemeWrapper>
+        <SwitchThemeButton />
       </MenuWrapper>
     </MainWrapper>
   );

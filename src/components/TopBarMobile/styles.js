@@ -1,4 +1,6 @@
+import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
+
 import media from 'styles/media';
 
 export const Wrapper = styled.nav`
@@ -10,12 +12,18 @@ export const Wrapper = styled.nav`
   font-family: 'Rosarivo', serif;
   font-size: 18px;
   padding: 0 0 0 32px;
+  position: relative;
+  z-index: 10;
 
   ${({ paddingLeft }) =>
     paddingLeft &&
     css`
       padding-left: ${paddingLeft}px;
     `}
+
+  ${media.tablet`
+        background: white;
+      `}
 
   ${media.smallDesktop`
     display: none;
@@ -32,6 +40,7 @@ export const BurgerWrapper = styled.div`
   position: fixed;
   right: 0;
   top: 0;
+  z-index: 10;
 `;
 
 export const Burger = styled.ul`
@@ -57,21 +66,86 @@ export const BurgerItem = styled.li`
 `;
 
 export const SearchWrapper = styled.div`
-  display: none;
+  width: 90px;
+  height: 90px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 7;
+  background-color: ${({ theme }) => theme.colors.background_dark_categories};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.1s 0.2s ease-in-out;
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      transform: translateX(-90px);
+
+      ${media.tablet`
+        transform: unset;
+      `}
+    `}
 
   ${media.tablet`
-    width: 90px;
-    height: 90px;
-    background-color: ${({ theme }) => theme.colors.background_dark_categories};
-    position: fixed;
-    right: 90px;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+      right: 90px;
+      top: 0;
   `}
 `;
 
 export const SearchIcon = styled.img`
   width: 17px;
+`;
+
+export const MenuInsideWrapper = styled.section`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 5;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 0 0 0;
+
+  overflow: hidden;
+
+  transform-origin: top right;
+
+  transition: transform 0.2s ease-in-out;
+
+  ${({ isOpen }) =>
+    isOpen
+      ? css`
+          transform: scale(1);
+        `
+      : css`
+          transform: scale(0);
+        `};
+
+  ${media.tablet`
+    background: ${({ theme }) => theme.colors.background_gray};
+  `}
+`;
+
+export const MenuItemsLink = styled(Link)`
+  font-weight: 300;
+  font-size: 24px;
+  color: black;
+  text-decoration: none;
+
+  margin: 63px 0 0 0;
+
+  ${media.tablet`
+    margin: 118px 0 0 0;
+  `}
+
+  :first-child {
+    margin: 0 0 0 0;
+  }
 `;

@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'gatsby';
+
 import media from 'styles/media';
 
 export const MainWrapper = styled.nav`
@@ -45,17 +47,37 @@ export const MenuWrapper = styled.ul`
   list-style: none;
 `;
 
-export const MenuItems = styled.li`
+export const MenuItems = styled(Link)`
   font-weight: 100;
   color: white;
   font-size: 18px;
   margin: 0 0 0 80px;
+  text-decoration: none;
+  z-index: 1;
+
+  transition: background 0.2s;
+
+  :hover {
+    padding: 10px 20px;
+    margin: 0 -20px 0 60px;
+    border-radius: 5px;
+    background: #222;
+  }
 
   :first-child {
     margin: 0 0 0 124px;
 
+    :hover {
+      margin: 0 -20px 0 104px;
+    }
+
     ${media.largeDesktop`
       margin: ${({ marginLeftSize }) => `0 0 0 ${marginLeftSize - 348}px`};
+
+      :hover {
+        margin: ${({ marginLeftSize }) =>
+          `0 -20px 0 ${marginLeftSize - 368}px`};
+      }
     `}
   }
 `;
