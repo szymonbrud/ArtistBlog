@@ -5,6 +5,17 @@ export const PostWrapper = styled.article`
   display: flex;
   flex-direction: column;
   margin-bottom: 90px;
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.gray_background_dark};
+    padding: 40px 20px;
+    box-sizing: content-box;
+    position: relative;
+    top: -40px;
+    left: -20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
 `;
 
 export const Image = styled.img`

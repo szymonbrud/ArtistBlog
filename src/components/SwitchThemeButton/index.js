@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { CSSProp } from 'styled-components';
+
 import {
   SwitchButtonWrapper,
   CircleInsideButton,
@@ -22,6 +24,14 @@ const SwitchThemeButton = ({ styleForMainWrapper }) => {
       </SwitchButtonWrapper>
     </SwitchThemeWrapper>
   );
+};
+
+SwitchThemeButton.propTypes = {
+  styleForMainWrapper: CSSProp,
+};
+
+SwitchThemeButton.defaultProps = {
+  styleForMainWrapper: '',
 };
 
 export default SwitchThemeButton;

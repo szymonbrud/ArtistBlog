@@ -1,3 +1,4 @@
+import { Link } from 'gatsby';
 import React, { useContext } from 'react';
 import { css } from 'styled-components';
 
@@ -71,7 +72,9 @@ const TopBarMobile = () => {
         ))}
       </MenuInsideWrapper>
       <Wrapper paddingLeft={topBarPaddingLeft} isOpen={isMenuOpen}>
-        <Logo />
+        <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+          <Logo />
+        </Link>
         <BurgerWrapper>
           <Burger onClick={() => setIsMenuOpen((prev) => !prev)}>
             <BurgerItem />

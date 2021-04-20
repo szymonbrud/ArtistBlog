@@ -13,6 +13,7 @@ export const MainWrapper = styled.nav`
     left: 0;
     width: 100%;
     height: 90px;
+    z-index: 5;
   `}
 `;
 
@@ -103,33 +104,3 @@ export const SearchWrapper = styled.div`
 `;
 
 export const SearchIcon = styled.img``;
-
-export const SwitchThemeWrapper = styled.div`
-  width: 90px;
-  height: 90px;
-  background: ${({ theme }) => theme.colors.yellow};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 65px;
-`;
-
-export const SwitchButtonWrapper = styled.button`
-  width: 38px;
-  height: 19px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  background-color: ${({ theme }) => theme.colors.background_gray};
-  border-radius: 96px;
-  border: none;
-`;
-
-export const CircleInsideButton = styled.div`
-  border-radius: 100px;
-  background-color: ${({ theme }) => theme.colors.yellow};
-  width: 15px;
-  height: 15px;
-  margin-left: -4px;
-`;

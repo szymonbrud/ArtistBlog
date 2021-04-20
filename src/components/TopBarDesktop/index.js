@@ -16,9 +16,6 @@ import {
   Line,
   SearchIcon,
   SearchWrapper,
-  CircleInsideButton,
-  SwitchButtonWrapper,
-  SwitchThemeWrapper,
 } from './styles';
 
 const menuElements = [
