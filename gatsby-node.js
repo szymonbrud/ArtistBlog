@@ -34,8 +34,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   );
 
   result.data.swapi.posts.forEach((post) => {
-    console.log(post.id);
-    console.log(post.category);
     createPage({
       path: `/post/${post.id}`,
       component: SinglePostTemplate,

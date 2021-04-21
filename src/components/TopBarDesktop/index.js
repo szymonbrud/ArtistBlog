@@ -57,7 +57,7 @@ const TopBarDesktop = () => {
       </Link>
       <MenuWrapper>
         {menuElements.map(({ title, link }) => (
-          <MenuItems key={link} marginLeftSize={marginLeft} to={link}>
+          <MenuItems key={link} marginleftsize={marginLeft} to={link}>
             {title}
           </MenuItems>
         ))}

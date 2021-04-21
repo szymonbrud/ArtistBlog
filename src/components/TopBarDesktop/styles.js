@@ -73,11 +73,11 @@ export const MenuItems = styled(Link)`
     }
 
     ${media.largeDesktop`
-      margin: ${({ marginLeftSize }) => `0 0 0 ${marginLeftSize - 348}px`};
+      margin: ${({ marginleftsize }) => `0 0 0 ${marginleftsize - 348}px`};
 
       :hover {
-        margin: ${({ marginLeftSize }) =>
-          `0 -20px 0 ${marginLeftSize - 368}px`};
+        margin: ${({ marginleftsize }) =>
+          `0 -20px 0 ${marginleftsize - 368}px`};
       }
     `}
   }

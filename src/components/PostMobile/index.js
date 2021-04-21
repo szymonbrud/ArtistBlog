@@ -1,16 +1,13 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import propTypes from 'prop-types';
+import { css } from 'styled-components';
 
-import {
-  PostWrapper,
-  Image,
-  Title,
-  Description,
-  DateAndTimeWrapper,
-  SmallText,
-  Point,
-} from './styles';
+import media from 'styles/media';
+
+import DateAndTime from 'components/DateAndTime';
+
+import { PostWrapper, Image, Title, Description } from './styles';
 
 const PostMobile = ({ postData }) => {
   const { title, shortDesc, date, readTime, image } = postData;
@@ -24,15 +21,17 @@ const PostMobile = ({ postData }) => {
         <Image src={image.url} />
         <Title>{title}</Title>
         <Description>{shortDesc}</Description>
-        <DateAndTimeWrapper>
-          <SmallText>{readTime} minut czytania</SmallText>
-          <Point />
-          <SmallText>
-            {`${date[0] + date[1] + date[2] + date[3]}.${date[5] + date[6]}.${
-              date[8] + date[9]
-            }`}
-          </SmallText>
-        </DateAndTimeWrapper>
+        <DateAndTime
+          date={date}
+          readTime={readTime}
+          WrapperStyles={css`
+            margin: 28px 0 0 0;
+
+            ${media.smallDesktop`
+              margin: 28px 0 0 0;
+            `}
+          `}
+        />
       </Link>
     </PostWrapper>
   );

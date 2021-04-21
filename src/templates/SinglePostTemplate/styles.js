@@ -31,31 +31,6 @@ export const Title = styled.h2`
   `}
 `;
 
-export const DateAndTimeWrapper = styled.div`
-  margin: 22px 0 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-shrink: 0;
-
-  ${media.smallDesktop`
-    margin: 0;
-  `}
-`;
-
-export const SmallText = styled.span`
-  font-size: 15px;
-  color: ${({ theme }) => theme.colors.black_65};
-`;
-
-export const Point = styled.div`
-  width: 2px;
-  height: 2px;
-  border-radius: 100px;
-  background: black;
-  margin: 0 10px;
-`;
-
 export const Content = styled.p`
   margin: 46px 0 0 0;
   font-size: 15px;

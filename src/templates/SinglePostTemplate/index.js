@@ -1,24 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import parse from 'html-react-parser';
-
-import debounce from 'lodash.debounce';
 
 import TopBarMobile from 'components/TopBarMobile';
 import TopBarDesktop from 'components/TopBarDesktop';
 import Footer from 'components/Footer';
+import DateAndTime from 'components/DateAndTime';
 
 import GlobalStyleProvider from 'styles/globalStyles';
 
-import DeviceViewContext, { DeviceViewContextProvider } from 'context';
-
 import {
   Content,
-  DateAndTimeWrapper,
   Image,
   MainWrapper,
-  Point,
-  SmallText,
   Title,
   CategoryItem,
   CategoryWrapper,
@@ -28,62 +23,21 @@ import {
   TitleAndTimeWrapper,
 } from './styles';
 
+import useHook from './useHook';
+
 import './style.css';
 
-const devicesSizes = [360, 834, 1440, 1920];
-
-const SinglePostTemplateWrapper = ({ children }) => (
-  <GlobalStyleProvider>
-    <DeviceViewContextProvider>{children}</DeviceViewContextProvider>
-  </GlobalStyleProvider>
-);
-
 const SinglePostTemplate = ({ pageContext }) => {
-  const deviceContext = useContext(DeviceViewContext);
-
-  const [deviceType, setDiviceType] = useState('');
-  const [width, setWidth] = useState(0);
-
-  console.log(deviceContext);
-
   const {
     category,
     date,
-    id,
     image,
     readTime,
-    shortDesc,
     title,
     content,
   } = pageContext.postData;
 
-  const setAllDiviceSettings = () => {
-    const pageWidth = window.outerWidth;
-    const pageHeight = window.outerHeight;
-
-    let currentDevice = null;
-
-    console.log(pageWidth);
-
-    devicesSizes.forEach((size, index) => {
-      if (pageWidth >= size) {
-        currentDevice = index;
-      }
-    });
-
-    setWidth(pageWidth);
-    setDiviceType(deviceContext.deviceTypes[currentDevice]);
-  };
-
-  React.useEffect(() => {
-    setAllDiviceSettings();
-  }, []);
-
-  window.addEventListener('resize', debounce(setAllDiviceSettings, 150));
-
-  console.log(deviceType);
-
-  console.log(content);
+  const { deviceType, width } = useHook();
 
   let marginForLeft = null;
 
@@ -95,11 +49,8 @@ const SinglePostTemplate = ({ pageContext }) => {
     marginForLeft = (width - 968) / 2;
   }
 
-  console.log('margin left');
-  console.log(marginForLeft);
-
   return (
-    <SinglePostTemplateWrapper>
+    <GlobalStyleProvider>
       <>
         <TopBarMobile />
         <TopBarDesktop />
@@ -107,15 +58,7 @@ const SinglePostTemplate = ({ pageContext }) => {
           <Image src={image.url} />
           <TitleAndTimeWrapper>
             <Title>{title}</Title>
-            <DateAndTimeWrapper>
-              <SmallText>{readTime} minut czytania</SmallText>
-              <Point />
-              <SmallText>
-                {`${date[0] + date[1] + date[2] + date[3]}.${
-                  date[5] + date[6]
-                }.${date[8] + date[9]}`}
-              </SmallText>
-            </DateAndTimeWrapper>
+            <DateAndTime readTime={readTime} date={date} />
           </TitleAndTimeWrapper>
           <Content>{parse(content && content.html)}</Content>
           <Line />
@@ -133,8 +76,26 @@ const SinglePostTemplate = ({ pageContext }) => {
         </MainWrapper>
         <Footer />
       </>
-    </SinglePostTemplateWrapper>
+    </GlobalStyleProvider>
   );
+};
+
+SinglePostTemplate.propTypes = {
+  pageContext: PropTypes.shape({
+    postData: PropTypes.shape({
+      id: PropTypes.string,
+      category: PropTypes.arrayOf(PropTypes.string),
+      date: PropTypes.string,
+      image: PropTypes.shape({
+        url: PropTypes.string,
+      }),
+      readTime: PropTypes.number,
+      title: PropTypes.string,
+      content: PropTypes.shape({
+        html: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
 };
 
 export default SinglePostTemplate;

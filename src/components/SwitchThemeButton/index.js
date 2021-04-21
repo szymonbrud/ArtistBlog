@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import { CSSProp } from 'styled-components';
+import propTypes from 'prop-types';
 
 import {
   SwitchButtonWrapper,
@@ -27,7 +26,7 @@ const SwitchThemeButton = ({ styleForMainWrapper }) => {
 };
 
 SwitchThemeButton.propTypes = {
-  styleForMainWrapper: CSSProp,
+  styleForMainWrapper: propTypes.resetWarningCache,
 };
 
 SwitchThemeButton.defaultProps = {

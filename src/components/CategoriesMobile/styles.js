@@ -50,12 +50,20 @@ export const InsideButton = styled(CategoryButtonStyles)`
 export const MainWrapper = styled.section`
   z-index: 3;
   position: fixed;
-  bottom: 0;
   left: 0;
-  display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
+
+  display: flex;
+
+  bottom: -100%;
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      bottom: 0;
+    `}
 
   ${media.tablet`
     display: none;

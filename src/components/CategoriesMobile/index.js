@@ -30,7 +30,7 @@ const CategoryMobile = ({ categories, setAllCategories }) => {
       <OpenButton isOpen={isOpen} onClick={() => setIsOpen((prev) => !prev)}>
         kategorie
       </OpenButton>
-      <MainWrapper>
+      <MainWrapper isOpen={isOpen}>
         <CloseSection
           onClick={() => setIsOpen((prev) => !prev)}
           isOpen={isOpen}
