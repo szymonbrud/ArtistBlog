@@ -1,3 +1,4 @@
+import { Link } from 'gatsby';
 import React from 'react';
 import propTypes from 'prop-types';
 
@@ -16,18 +17,23 @@ const PostMobile = ({ postData }) => {
 
   return (
     <PostWrapper>
-      <Image src={image.url} />
-      <Title>{title}</Title>
-      <Description>{shortDesc}</Description>
-      <DateAndTimeWrapper>
-        <SmallText>{readTime} minut czytania</SmallText>
-        <Point />
-        <SmallText>
-          {`${date[0] + date[1] + date[2] + date[3]}.${date[5] + date[6]}.${
-            date[8] + date[9]
-          }`}
-        </SmallText>
-      </DateAndTimeWrapper>
+      <Link
+        to={`/post/${postData.id}`}
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
+        <Image src={image.url} />
+        <Title>{title}</Title>
+        <Description>{shortDesc}</Description>
+        <DateAndTimeWrapper>
+          <SmallText>{readTime} minut czytania</SmallText>
+          <Point />
+          <SmallText>
+            {`${date[0] + date[1] + date[2] + date[3]}.${date[5] + date[6]}.${
+              date[8] + date[9]
+            }`}
+          </SmallText>
+        </DateAndTimeWrapper>
+      </Link>
     </PostWrapper>
   );
 };
@@ -38,6 +44,7 @@ PostMobile.propTypes = {
     shortDesc: propTypes.string.isRequired,
     date: propTypes.string.isRequired,
     readTime: propTypes.number.isRequired,
+    id: propTypes.string.isRequired,
     image: propTypes.shape({
       url: propTypes.string.isRequired,
     }),

@@ -35,7 +35,6 @@ const pageQuery = graphql`
         shortDesc
         date
         readTime
-        content
         image {
           url
         }

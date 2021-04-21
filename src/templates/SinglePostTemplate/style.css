@@ -1,0 +1,25 @@
+blockquote {
+  position: relative;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #eeeeee;
+  padding: 20px 40px;
+  left: -40px;
+}
+
+blockquote::before {
+  /* content: ''; */
+  position: absolute;
+  top: -10px;
+  left: 30px;
+  width: calc(100% + 60px);
+  height: calc(100% + 20px);
+  background-color: #e4e4e4;
+  /* background-color: rgba(0, 0, 0, 0.6); */
+  /* background-color: white; */
+}
+
+p {
+  margin-top: 25px;
+}
+
+/* "<p>In a leake d memo, Elon Musk sent every employee in Tesla his six rules for productivity. Unsurprisingly, they are good.</p><p></p><p>I had to laugh when I compared it to what we did in the police — and I bet they are still doing it.</p><p></p><h3>#1. Leave a meeting if you are not contributing.</h3><h3></h3><p>Walk out of a meeting or hang up the phone the moment you realise you are not contributing. If you are not adding value — get the hell out of there. It is not rude to leave, it is rude to waste other people’s time.</p><p></p><p>I once got up to walk out of a meeting — Chief Inspector Chumley wasn’t pleased:</p><p></p><blockquote>“Wait,” said Chumley, “one more thing. What if we could get the horsey section to attend the town fair too?”</blockquote><blockquote>“If you mean the mounted police, that is what they are for,” I replied.</blockquote><blockquote>“See if they can supply two horses and riders. That should do it.”</blockquote><p></p><p>I toddled off. Later, I contacted the mounted section, they couldn’t have been more helpful; they’d supply two horses and two riders, no problem. Town fairs were just the thing they were good at.</p><p>The next day I sat in on the hindsight meeting, and at the end, Chief Inspector Chumley asked,</p><p></p><p>It was in mid-sentence the little mischievous imp that lives in my brain had some fun.</p><h5></h5>" */

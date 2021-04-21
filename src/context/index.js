@@ -15,6 +15,8 @@ const defaultContext = {
 const DeviceViewContext = React.createContext(defaultContext);
 
 export const DeviceViewContextProvider = ({ children }) => {
+  console.log('context');
+
   const [context, setContext] = useState({ defaultContext });
 
   const setAllDiviceSettings = () => {
@@ -22,6 +24,8 @@ export const DeviceViewContextProvider = ({ children }) => {
     const pageHeight = window.outerHeight;
 
     let currentDevice = null;
+
+    console.log(pageWidth);
 
     devicesSizes.forEach((size, index) => {
       if (pageWidth >= size) {
