@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import DeviceViewContext from 'context';
 
+import propTypes from 'prop-types';
+
 import Logo from 'components/Logo';
 
 import {
@@ -15,20 +17,20 @@ import {
   Line,
 } from './styles';
 
-const Footer = () => {
-  const devicesContext = useContext(DeviceViewContext);
+const Footer = ({ deviceSettings }) => {
+  const deviceContext = useContext(DeviceViewContext);
+
+  const device = deviceSettings || deviceContext;
 
   let paddingLeft = null;
 
-  if (devicesContext.deviceType === 'tablet') {
-    paddingLeft = (devicesContext.width - 674) / 2;
-  } else if (devicesContext.deviceType === 'smallDesktop') {
+  if (device.deviceType === 'tablet') {
+    paddingLeft = (device.width - 674) / 2;
+  } else if (device.deviceType === 'smallDesktop') {
     paddingLeft =
-      (devicesContext.width - 968) / 2 <= 305
-        ? 302
-        : (devicesContext.width - 968) / 2;
-  } else if (devicesContext.deviceType === 'largeDesktop') {
-    paddingLeft = (devicesContext.width - 968) / 2;
+      (device.width - 968) / 2 <= 305 ? 302 : (device.width - 968) / 2;
+  } else if (device.deviceType === 'largeDesktop') {
+    paddingLeft = (device.width - 968) / 2;
   }
 
   return (
@@ -57,6 +59,17 @@ const Footer = () => {
       </GridWrapper>
     </MainWrpaper>
   );
+};
+
+Footer.propTypes = {
+  deviceSettings: propTypes.objectOf({
+    width: propTypes.number,
+    deviceType: propTypes.string,
+  }),
+};
+
+Footer.defaultProps = {
+  deviceSettings: null,
 };
 
 export default Footer;

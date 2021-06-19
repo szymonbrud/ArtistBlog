@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'gatsby';
+import propTypes from 'prop-types';
 
 import loupeSvg from 'images/loupe.svg';
 
@@ -33,19 +34,21 @@ const menuElements = [
   },
 ];
 
-const TopBarDesktop = () => {
+const TopBarDesktop = ({ deviceSettings }) => {
   const deviceContext = useContext(DeviceViewContext);
 
   let marginForLogo = null;
   let marginLeft = null;
 
-  if (deviceContext.deviceType === 'smallDesktop') {
+  const device = deviceSettings || deviceContext;
+
+  if (device.deviceType === 'smallDesktop') {
     marginForLogo =
-      (deviceContext.width - 968) / 2 <= 305
+      (device.width - 968) / 2 <= 305
         ? 50
-        : ((deviceContext.width - 968) / 2 - 202) / 2;
-  } else if (deviceContext.deviceType === 'largeDesktop') {
-    marginLeft = (deviceContext.width - 968) / 2;
+        : ((device.width - 968) / 2 - 202) / 2;
+  } else if (device.deviceType === 'largeDesktop') {
+    marginLeft = (device.width - 968) / 2;
   }
 
   return (
@@ -69,6 +72,17 @@ const TopBarDesktop = () => {
       </MenuWrapper>
     </MainWrapper>
   );
+};
+
+TopBarDesktop.propTypes = {
+  deviceSettings: propTypes.objectOf({
+    width: propTypes.number,
+    deviceType: propTypes.string,
+  }),
+};
+
+TopBarDesktop.defaultProps = {
+  deviceSettings: null,
 };
 
 export default TopBarDesktop;

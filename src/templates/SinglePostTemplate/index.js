@@ -53,7 +53,7 @@ const SinglePostTemplate = ({ pageContext }) => {
     <GlobalStyleProvider>
       <>
         <TopBarMobile />
-        <TopBarDesktop />
+        <TopBarDesktop deviceSettings={{ width, deviceType }} />
         <MainWrapper marginForLeft={marginForLeft}>
           <Image src={image.url} />
           <TitleAndTimeWrapper>
@@ -74,7 +74,7 @@ const SinglePostTemplate = ({ pageContext }) => {
             urna ac feugiat. In vehicula quis justo id tincidunt.
           </AuthorContent>
         </MainWrapper>
-        <Footer />
+        <Footer deviceSettings={{ width, deviceType }} />
       </>
     </GlobalStyleProvider>
   );
