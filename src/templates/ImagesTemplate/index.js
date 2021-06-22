@@ -5,6 +5,15 @@ import TopBarMobile from 'components/TopBarMobile';
 import TopBarDesktop from 'components/TopBarDesktop';
 import Footer from 'components/Footer';
 
+import {
+  SectionTitle,
+  MainWrapper,
+  Image,
+  ImageMoreButton,
+  ImageWrapper,
+  ImagesWrapper,
+} from './styles';
+
 const graphqlQuary = graphql`
   {
     swapi {
@@ -29,6 +38,17 @@ const ImagesTemplate = () => {
     <>
       <TopBarMobile />
       <TopBarDesktop />
+      <MainWrapper>
+        <SectionTitle>Sztuka</SectionTitle>
+        <ImagesWrapper>
+          {galleries.map(({ image, id }) => (
+            <ImageWrapper key={id}>
+              <Image imageURL={image.url} />
+              <ImageMoreButton>więcej</ImageMoreButton>
+            </ImageWrapper>
+          ))}
+        </ImagesWrapper>
+      </MainWrapper>
       <Footer />
     </>
   );
