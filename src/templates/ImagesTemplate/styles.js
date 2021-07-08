@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import media from 'styles/media';
 
@@ -18,6 +18,16 @@ export const MainWrapper = styled.main`
     padding-bottom: 100px;
     min-height: 130vh;
   `}
+
+  ${({ isScrollAllow }) =>
+    isScrollAllow &&
+    css`
+      scroll
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+    `}
 `;
 
 export const SectionTitle = styled.h1`
@@ -78,6 +88,8 @@ export const Image = styled.div`
   background-size: cover;
   background-image: url(${({ imageURL }) => imageURL});
 
+  cursor: pointer;
+
   ${media.tablet`
     width: 200px;
     height: 200px;
@@ -86,6 +98,12 @@ export const Image = styled.div`
   ${media.smallDesktop`
     width: 300px;
     height: 300px;
+
+    transition: transform .1s;
+
+    :hover{
+      transform: scale(1.05);
+    }
   `}
 `;
 

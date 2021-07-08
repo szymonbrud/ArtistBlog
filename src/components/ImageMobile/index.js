@@ -3,11 +3,12 @@ import propTypes from 'prop-types';
 
 import { Image, ImageWrapper, More } from './styles';
 
-const ImageMobile = ({ imageData }) => {
+// TODO: dodać prop types
+const ImageMobile = ({ imageData, openImage }) => {
   const { image, title } = imageData;
 
   return (
-    <ImageWrapper>
+    <ImageWrapper onClick={openImage}>
       <Image src={image.url} alt={title} />
       <More>Więcej</More>
     </ImageWrapper>

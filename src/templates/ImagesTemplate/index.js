@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import TopBarMobile from 'components/TopBarMobile';
 import TopBarDesktop from 'components/TopBarDesktop';
 import Footer from 'components/Footer';
+import SpecificViewImage from 'components/SpecificViewImage';
 
 import {
   SectionTitle,
@@ -21,6 +22,8 @@ const graphqlQuary = graphql`
         id
         image {
           url
+          height
+          width
         }
         title
         desc
@@ -34,15 +37,24 @@ const ImagesTemplate = () => {
     swapi: { galleries },
   } = useStaticQuery(graphqlQuary);
 
+  const [selectedImage, setSelectedImage] = useState(-1);
+
   return (
     <>
       <TopBarMobile />
       <TopBarDesktop />
-      <MainWrapper>
+      {selectedImage !== -1 && (
+        <SpecificViewImage
+          galleries={galleries}
+          currImage={selectedImage}
+          close={() => setSelectedImage(-1)}
+        />
+      )}
+      <MainWrapper isScrollAllow={selectedImage !== -1}>
         <SectionTitle>Sztuka</SectionTitle>
         <ImagesWrapper>
-          {galleries.map(({ image, id }) => (
-            <ImageWrapper key={id}>
+          {galleries.map(({ image, id }, index) => (
+            <ImageWrapper key={id} onClick={() => setSelectedImage(index)}>
               <Image imageURL={image.url} />
               <ImageMoreButton>więcej</ImageMoreButton>
             </ImageWrapper>

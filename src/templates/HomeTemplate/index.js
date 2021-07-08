@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import GlobalStyleProvider from 'styles/globalStyles';
@@ -8,6 +8,7 @@ import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
 import Footer from 'components/Footer';
 import TopBarDesktop from 'components/TopBarDesktop';
+import SpecificViewImage from 'components/SpecificViewImage';
 
 import DeviceViewContext from 'context';
 
@@ -50,6 +51,8 @@ const HeroTemplate = () => {
 
   const deviceContext = useContext(DeviceViewContext);
 
+  const [selectedImage, setSelectedImage] = useState(-1);
+
   let marginForLeft = null;
 
   if (deviceContext.deviceType === 'smallDesktop') {
@@ -64,6 +67,13 @@ const HeroTemplate = () => {
       <>
         <TopBarMobile />
         <TopBarDesktop />
+        {selectedImage !== -1 && (
+          <SpecificViewImage
+            galleries={galleries}
+            currImage={selectedImage}
+            close={() => setSelectedImage(-1)}
+          />
+        )}
         <GridWrapper marginForLeft={marginForLeft}>
           <PostWrapper>
             <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
@@ -73,8 +83,12 @@ const HeroTemplate = () => {
           </PostWrapper>
           <GalleryWrapper>
             <SectionTitle>Ostatnio opublikowane obrazy</SectionTitle>
-            {galleries.map((image) => (
-              <ImageMobile imageData={image} key={image.id} />
+            {galleries.map((image, imageIndex) => (
+              <ImageMobile
+                imageData={image}
+                key={image.id}
+                openImage={() => setSelectedImage(imageIndex)}
+              />
             ))}
           </GalleryWrapper>
         </GridWrapper>
