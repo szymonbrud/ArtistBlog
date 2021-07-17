@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 
 import { Image, ImageWrapper, More } from './styles';
 
-// TODO: dodać prop types
 const ImageMobile = ({ imageData, openImage }) => {
   const { image, title } = imageData;
 
@@ -23,6 +22,7 @@ ImageMobile.propTypes = {
       url: propTypes.string.isRequired,
     }),
   }).isRequired,
+  openImage: propTypes.func.isRequired,
 };
 
 export default ImageMobile;

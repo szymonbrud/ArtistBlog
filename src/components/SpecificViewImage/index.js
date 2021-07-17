@@ -1,5 +1,8 @@
+/* eslint consistent-return: "off" */
+
 import React, { useState, useContext } from 'react';
 import DeviceViewContext from 'context';
+import propTypes from 'prop-types';
 
 import TopBarMobile from 'components/TopBarMobile';
 import TopBarDesktop from 'components/TopBarDesktop';
@@ -19,7 +22,6 @@ import {
   TitleDescPositionWrapper,
 } from './styles';
 
-// TODO: dodać prop types
 const SpecificViewImage = ({ galleries, currImage, close }) => {
   const [currImg, setCurrImg] = useState(currImage);
 
@@ -60,17 +62,15 @@ const SpecificViewImage = ({ galleries, currImage, close }) => {
     }
   };
 
+  const closeByTarget = (event) =>
+    event.target === event.currentTarget && close();
+
   return (
-    <MainWrapper
-      // TODO: sprowadzić to do osobniej funkcji
-      onClick={(event) => event.target === event.currentTarget && close()}
-    >
+    <MainWrapper onClick={closeByTarget}>
       <TopBarMobile />
       <TopBarDesktop />
       <CloseButton onClick={close}>close</CloseButton>
-      <DesktopPosstionWrapper
-        onClick={(event) => event.target === event.currentTarget && close()}
-      >
+      <DesktopPosstionWrapper onClick={closeByTarget}>
         <Image src={galleries[currImg].image.url} style={imageSize()} />
         <TitleAndDescWrapper>
           <TitleDescPositionWrapper>
@@ -80,15 +80,30 @@ const SpecificViewImage = ({ galleries, currImage, close }) => {
           <Date>18.02.2020</Date>
         </TitleAndDescWrapper>
       </DesktopPosstionWrapper>
-      <ButtonsWrapper
-        onClick={(event) => event.target === event.currentTarget && close()}
-      >
+      <ButtonsWrapper onClick={closeByTarget}>
         <Button onClick={() => switchImage('prev')}>prev</Button>
         <Line />
         <Button onClick={() => switchImage('next')}>next</Button>
       </ButtonsWrapper>
     </MainWrapper>
   );
+};
+
+SpecificViewImage.propTypes = {
+  currImage: propTypes.number.isRequired,
+  close: propTypes.func.isRequired,
+  galleries: propTypes.arrayOf(
+    propTypes.shape({
+      desc: propTypes.string,
+      id: propTypes.string,
+      image: propTypes.shape({
+        height: propTypes.number,
+        url: propTypes.string,
+        width: propTypes.number,
+      }),
+      title: propTypes.string,
+    })
+  ).isRequired,
 };
 
 export default SpecificViewImage;
