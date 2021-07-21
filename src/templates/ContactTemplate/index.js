@@ -17,6 +17,7 @@ import {
   Form,
   TextAlternativeSend,
   TextBold,
+  SectionAndDescWrapper,
 } from './styles';
 
 const ContactTemplate = () => {
@@ -27,8 +28,10 @@ const ContactTemplate = () => {
       <TopBarDesktop />
       <TopBarMobile />
       <MainWrapper>
-        <SectionName>Kontakt</SectionName>
-        <Desc>jeśli masz jakąś sprawę do mnie to zapraszam do kontaktu</Desc>
+        <SectionAndDescWrapper>
+          <SectionName>Kontakt</SectionName>
+          <Desc>jeśli masz jakąś sprawę do mnie to zapraszam do kontaktu</Desc>
+        </SectionAndDescWrapper>
         <Form action={process.env.GATSBY_FORM_API_KEY} method="POST">
           <InputName>Twój mail</InputName>
           <Input
@@ -55,7 +58,7 @@ const ContactTemplate = () => {
           <SendButton disabled={isSendButtonDisabled}>wyślij</SendButton>
         </Form>
         <TextAlternativeSend>
-          Jeśłi nie możesz skożystać z formulaża to zapraszam do kontaktu na
+          Jeśli nie możesz skożystać z formulaża to zapraszam do kontaktu na
           email <br /> <TextBold>brudplast@gmail.com</TextBold>
         </TextAlternativeSend>
       </MainWrapper>
