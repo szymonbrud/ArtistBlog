@@ -42,6 +42,10 @@ export const Input = styled.input`
   padding: 0 20px;
   margin-top: 8px;
 
+  :invalid {
+    border: 1px solid #da4f4f;
+  }
+
   :focus {
     border: 2px solid black;
     outline: 0;
@@ -76,6 +80,12 @@ export const SendButton = styled.button`
   font-weight: 100;
   margin: 30px 0 0;
   align-self: center;
+
+  :disabled {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
 `;
 
 export const TextAlternativeSend = styled.p`
