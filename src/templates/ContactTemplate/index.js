@@ -1,4 +1,5 @@
 import React from 'react';
+import ReCaptcha, { Loader } from '@pittica/gatsby-plugin-recaptcha';
 
 import TopBarDesktop from 'components/TopBarDesktop';
 import TopBarMobile from 'components/TopBarMobile';
@@ -18,10 +19,21 @@ import {
   TextAlternativeSend,
   TextBold,
   SectionAndDescWrapper,
+  ButtonAndCaptchaWrapper,
 } from './styles';
 
 const ContactTemplate = () => {
   const { inputsRef, isSendButtonDisabled, validateForm } = useHooks();
+
+  const [isCaptchaVerified, setIsCaptchaVerified] = React.useState(false);
+
+  const verifyCallback = (token) => {
+    if (token) setIsCaptchaVerified(true);
+  };
+
+  React.useEffect(() => {
+    Loader();
+  }, []);
 
   return (
     <>
@@ -55,7 +67,18 @@ const ContactTemplate = () => {
             onChange={validateForm}
             name="Treść"
           />
-          <SendButton disabled={isSendButtonDisabled}>wyślij</SendButton>
+          <ButtonAndCaptchaWrapper>
+            <ReCaptcha
+              action="sendMail"
+              sitekey={process.env.GATSBY_CAPTCHA_API_KEY}
+              callback={verifyCallback}
+            />
+            <SendButton
+              disabled={!(isCaptchaVerified && !isSendButtonDisabled)}
+            >
+              wyślij
+            </SendButton>
+          </ButtonAndCaptchaWrapper>
         </Form>
         <TextAlternativeSend>
           Jeśli nie możesz skożystać z formulaża to zapraszam do kontaktu na
