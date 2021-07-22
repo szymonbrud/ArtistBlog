@@ -69,7 +69,8 @@ const ContactTemplate = () => {
           />
           <ButtonAndCaptchaWrapper>
             <ReCaptcha
-              action="sendMail"
+              action="social"
+              class="g-recaptcha"
               sitekey={process.env.GATSBY_CAPTCHA_API_KEY}
               callback={verifyCallback}
             />
