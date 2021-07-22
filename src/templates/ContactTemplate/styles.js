@@ -124,20 +124,6 @@ export const Textarea = styled.textarea`
   `}
 `;
 
-export const ButtonAndCaptchaWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 30px;
-  align-items: center;
-  gap: 20px;
-
-  ${media.smallDesktop`
-    flex-direction: row;
-    position: relative;
-    right: 36px;
-  `}
-`;
-
 export const SendButton = styled.button`
   width: 135px;
   height: 50px;
@@ -146,7 +132,7 @@ export const SendButton = styled.button`
   color: white;
   font-size: 18px;
   font-weight: 100;
-  margin: 0;
+  margin: 30px 0 0 0;
   align-self: center;
   cursor: pointer;
 
