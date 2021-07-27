@@ -37,7 +37,7 @@ const menuElements = [
   },
 ];
 
-const TopBarMobile = () => {
+const TopBarMobile = ({ setIsSearchViewOpen, isSearchViewOpen }) => {
   const devicesContext = useContext(DeviceViewContext);
   const { isMenuOpen, setIsMenuOpen } = useHooks();
 
@@ -76,13 +76,28 @@ const TopBarMobile = () => {
           <Logo />
         </Link>
         <BurgerWrapper>
-          <Burger onClick={() => setIsMenuOpen((prev) => !prev)}>
-            <BurgerItem />
-            <BurgerItem />
-            <BurgerItem />
+          <Burger
+            onClick={() => {
+              if (isSearchViewOpen) {
+                setIsSearchViewOpen(false);
+              } else {
+                setIsMenuOpen((prev) => !prev);
+              }
+            }}
+            isOpen={isSearchViewOpen}
+          >
+            <BurgerItem isOpen={isSearchViewOpen} />
+            <BurgerItem isOpen={isSearchViewOpen} />
+            <BurgerItem isOpen={isSearchViewOpen} />
           </Burger>
         </BurgerWrapper>
-        <SearchWrapper isOpen={isMenuOpen}>
+        <SearchWrapper
+          isOpen={isMenuOpen}
+          onClick={() => {
+            setIsSearchViewOpen(true);
+            setIsMenuOpen(false);
+          }}
+        >
           <SearchIcon src={loupeSvg} />
         </SearchWrapper>
         <SwitchThemeButton styleForMainWrapper={stylesForSwitchButton} />

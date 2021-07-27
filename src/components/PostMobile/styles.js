@@ -4,7 +4,7 @@ export const PostWrapper = styled.article`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 90px;
+  margin-bottom: ${({ isSmallMargin }) => (isSmallMargin ? '30px' : '90px')};
 
   :hover {
     background-color: ${({ theme }) => theme.colors.gray_background_dark};

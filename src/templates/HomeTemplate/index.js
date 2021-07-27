@@ -9,6 +9,7 @@ import ImageMobile from 'components/ImageMobile';
 import Footer from 'components/Footer';
 import TopBarDesktop from 'components/TopBarDesktop';
 import SpecificViewImage from 'components/SpecificViewImage';
+import SearchView from 'components/SearchView';
 
 import DeviceViewContext from 'context';
 
@@ -52,6 +53,7 @@ const HeroTemplate = () => {
   const deviceContext = useContext(DeviceViewContext);
 
   const [selectedImage, setSelectedImage] = useState(-1);
+  const [isSearchViewOpen, setIsSearchViewOpen] = useState(false);
 
   let marginForLeft = null;
 
@@ -63,9 +65,12 @@ const HeroTemplate = () => {
   }
 
   return (
-    <GlobalStyleProvider>
+    <GlobalStyleProvider isBodyOverflowHidden={isSearchViewOpen}>
       <>
-        <TopBarMobile />
+        <TopBarMobile
+          setIsSearchViewOpen={setIsSearchViewOpen}
+          isSearchViewOpen={isSearchViewOpen}
+        />
         <TopBarDesktop />
         {selectedImage !== -1 && (
           <SpecificViewImage
@@ -74,6 +79,7 @@ const HeroTemplate = () => {
             close={() => setSelectedImage(-1)}
           />
         )}
+        <SearchView isOpen={isSearchViewOpen} />
         <GridWrapper marginForLeft={marginForLeft}>
           <PostWrapper>
             <SectionTitle>Ostatnio opublikowane posty</SectionTitle>

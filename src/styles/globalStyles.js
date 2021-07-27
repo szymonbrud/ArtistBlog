@@ -25,12 +25,14 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem;
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    overflow: ${({ isBodyOverflowHidden }) =>
+      isBodyOverflowHidden ? 'hidden' : 'unset'};
   }
 `;
 
-const GlobalStyleProvider = ({ children }) => (
+const GlobalStyleProvider = ({ children, isBodyOverflowHidden }) => (
   <>
-    <GlobalStyle />
+    <GlobalStyle isBodyOverflowHidden={isBodyOverflowHidden} />
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </>
 );
@@ -38,6 +40,11 @@ const GlobalStyleProvider = ({ children }) => (
 GlobalStyleProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(element), element])
     .isRequired,
+  isBodyOverflowHidden: PropTypes.bool,
+};
+
+GlobalStyleProvider.defaultProps = {
+  isBodyOverflowHidden: false,
 };
 
 export default GlobalStyleProvider;

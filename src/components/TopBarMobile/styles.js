@@ -52,6 +52,7 @@ export const Burger = styled.ul`
   justify-content: center;
   padding: 10px;
   box-sizing: content-box;
+  position: relative;
 `;
 
 export const BurgerItem = styled.li`
@@ -63,6 +64,27 @@ export const BurgerItem = styled.li`
   :first-child {
     margin-top: 0px;
   }
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      :first-child {
+        display: none;
+      }
+
+      :nth-child(2) {
+        transform: translate(-50%) rotate(45deg);
+      }
+
+      :nth-child(3) {
+        transform: translate(-50%) rotate(-45deg);
+      }
+    `}
 `;
 
 export const SearchWrapper = styled.div`
