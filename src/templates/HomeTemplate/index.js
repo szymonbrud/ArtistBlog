@@ -55,6 +55,8 @@ const HeroTemplate = () => {
   const [selectedImage, setSelectedImage] = useState(-1);
   const [isSearchViewOpen, setIsSearchViewOpen] = useState(false);
 
+  const [currentUsageGalleries, setCurrentUsageGalleries] = useState([]);
+
   let marginForLeft = null;
 
   if (deviceContext.deviceType === 'smallDesktop') {
@@ -71,15 +73,22 @@ const HeroTemplate = () => {
           setIsSearchViewOpen={setIsSearchViewOpen}
           isSearchViewOpen={isSearchViewOpen}
         />
-        <TopBarDesktop />
+        <TopBarDesktop setIsSearchViewOpen={setIsSearchViewOpen} />
         {selectedImage !== -1 && (
           <SpecificViewImage
-            galleries={galleries}
+            galleries={currentUsageGalleries}
             currImage={selectedImage}
             close={() => setSelectedImage(-1)}
           />
         )}
-        <SearchView isOpen={isSearchViewOpen} />
+        <SearchView
+          isOpen={isSearchViewOpen}
+          close={() => setIsSearchViewOpen(false)}
+          viewGalleriesElements={{
+            setCurrentUsageGalleries,
+            setSelectedImage,
+          }}
+        />
         <GridWrapper marginForLeft={marginForLeft}>
           <PostWrapper>
             <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
@@ -93,7 +102,10 @@ const HeroTemplate = () => {
               <ImageMobile
                 imageData={image}
                 key={image.id}
-                openImage={() => setSelectedImage(imageIndex)}
+                openImage={() => {
+                  setSelectedImage(imageIndex);
+                  setCurrentUsageGalleries(galleries);
+                }}
               />
             ))}
           </GalleryWrapper>

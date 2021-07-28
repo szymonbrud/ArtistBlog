@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import media from 'styles/media';
+
 export const MainWrapper = styled.section`
   position: fixed;
   top: 90px;
@@ -18,6 +20,17 @@ export const MainWrapper = styled.section`
     css`
       transform: translateY(0);
     `}
+
+  ${media.tablet`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `}
+
+  ${media.smallDesktop`
+    border-top: 0;
+    background: ${({ theme }) => theme.colors.background_gray_90};
+  `}
 `;
 
 export const InputWrapper = styled.div`
@@ -26,10 +39,40 @@ export const InputWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.light_gray_search};
   align-items: center;
   padding-bottom: 19px;
+  position: relative;
 
   &:focus-within {
     border-bottom: 1px solid black;
   }
+
+  ${media.tablet`
+    width: 550px;
+  `}
+
+  ${media.smallDesktop`
+    background: white;
+    padding: 20px;
+    margin: auto 0 auto;
+
+    ${({ isSerached }) =>
+      isSerached &&
+      css`
+        margin: 60px 0 0;
+      `}
+  `}
+
+  ${({ isNoResoult }) =>
+    isNoResoult &&
+    css`
+      ::before {
+        position: absolute;
+        top: calc(100% + 30px);
+        left: 50%;
+        transform: translateX(-50%);
+        content: 'Brak rezultatów';
+        font-size: 15px;
+      }
+    `}
 `;
 
 export const Input = styled.input`
@@ -47,6 +90,10 @@ export const Input = styled.input`
   :focus {
     outline: 0;
   }
+
+  ${media.smallDesktop`
+    background: none;
+  `}
 `;
 
 export const SearchIcon = styled.img`
@@ -58,6 +105,16 @@ export const PostsWrapper = styled.section`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+
+  ${media.tablet`
+    width: 550px;
+  `}
+
+  ${media.smallDesktop`
+    background: white;
+    margin: 0;
+    padding: 50px 33px;
+  `}
 `;
 
 export const CategoryTitle = styled.h3`

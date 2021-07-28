@@ -71,7 +71,11 @@ const TopBarMobile = ({ setIsSearchViewOpen, isSearchViewOpen }) => {
           </MenuItemsLink>
         ))}
       </MenuInsideWrapper>
-      <Wrapper paddingLeft={topBarPaddingLeft} isOpen={isMenuOpen}>
+      <Wrapper
+        paddingLeft={topBarPaddingLeft}
+        isOpen={isMenuOpen}
+        isSearchViewOpen={isSearchViewOpen}
+      >
         <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
           <Logo />
         </Link>

@@ -9,11 +9,11 @@ import DateAndTime from 'components/DateAndTime';
 
 import { PostWrapper, Image, Title, Description } from './styles';
 
-const PostMobile = ({ postData, isSmallMargin }) => {
+const PostMobile = ({ postData, isSearchTemplate }) => {
   const { title, shortDesc, date, readTime, image } = postData;
 
   return (
-    <PostWrapper isSmallMargin={isSmallMargin}>
+    <PostWrapper isSmallMargin={isSearchTemplate}>
       <Link
         to={`/post/${postData.id}`}
         style={{ textDecoration: 'none', color: 'black' }}
@@ -48,11 +48,11 @@ PostMobile.propTypes = {
       url: propTypes.string.isRequired,
     }),
   }).isRequired,
-  isSmallMargin: propTypes.bool,
+  isSearchTemplate: propTypes.bool,
 };
 
 PostMobile.defaultProps = {
-  isSmallMargin: false,
+  isSearchTemplate: false,
 };
 
 export default PostMobile;

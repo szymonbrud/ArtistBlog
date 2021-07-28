@@ -10,6 +10,7 @@ export const theme = {
     white_65: 'rgba(255,255,255,0.65)',
     background_gray: '#F5F5F5',
     background_gray_54: 'rgba(245, 245, 245, 0.54)',
+    background_gray_90: 'rgba(245, 245, 245, 0.9)',
     dark_gray: '#545454',
     gray_background_dark: '#F0F0F0',
     gray_background_buttons: '#E4E4E4',
@@ -19,7 +20,6 @@ export const theme = {
     yellow: '#F6D252',
     dark_gray_footer_line: '#DDDADA',
     contact_placeholder_text: '#C7C7C7',
-    background_gray_90: '#F5F5F5',
     dark_gray_line: '#6A6A6A',
   },
 };

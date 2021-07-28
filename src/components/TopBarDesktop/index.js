@@ -17,6 +17,7 @@ import {
   Line,
   SearchIcon,
   SearchWrapper,
+  NoResoults,
 } from './styles';
 
 const menuElements = [
@@ -34,7 +35,7 @@ const menuElements = [
   },
 ];
 
-const TopBarDesktop = ({ deviceSettings }) => {
+const TopBarDesktop = ({ deviceSettings, setIsSearchViewOpen }) => {
   const deviceContext = useContext(DeviceViewContext);
 
   let marginForLogo = null;
@@ -65,7 +66,7 @@ const TopBarDesktop = ({ deviceSettings }) => {
           </MenuItems>
         ))}
         <Line />
-        <SearchWrapper>
+        <SearchWrapper onClick={() => setIsSearchViewOpen(true)}>
           <SearchIcon src={loupeSvg} alt="search" />
         </SearchWrapper>
         <SwitchThemeButton />

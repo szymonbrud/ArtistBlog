@@ -4,6 +4,7 @@ export const ImageWrapper = styled.article`
   margin: 0 0 28px 0;
   padding: 0 0 10px 0;
   width: 100%;
+  cursor: pointer;
 `;
 
 export const Image = styled.img`

@@ -28,6 +28,14 @@ export const Wrapper = styled.nav`
   ${media.smallDesktop`
     display: none;
   `}
+
+  ${({ isSearchViewOpen }) =>
+    isSearchViewOpen &&
+    css`
+      position: fixed;
+      top: 0;
+      left: 0;
+    `}
 `;
 
 export const BurgerWrapper = styled.div`
@@ -53,6 +61,8 @@ export const Burger = styled.ul`
   padding: 10px;
   box-sizing: content-box;
   position: relative;
+
+  cursor: pointer;
 `;
 
 export const BurgerItem = styled.li`
@@ -98,6 +108,8 @@ export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 
   transition: transform 0.1s 0.2s ease-in-out;
 

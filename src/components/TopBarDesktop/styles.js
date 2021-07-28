@@ -101,6 +101,7 @@ export const SearchWrapper = styled.div`
   width: 144px;
   height: 20px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.white_50};
+  cursor: text;
 `;
 
 export const SearchIcon = styled.img``;

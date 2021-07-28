@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import debounce from 'lodash.debounce';
 
 import PostMobile from 'components/PostMobile';
-import SpecificViewImage from 'components/SpecificViewImage';
 import ImageMobile from 'components/ImageMobile';
+
+import DeviceViewContext from 'context';
 
 import darkLoupe from 'images/darkLoupe.svg';
 
@@ -41,55 +42,76 @@ const pageQuery = graphql`
   }
 `;
 
-const SearchView = ({ isOpen }) => {
+const SearchView = ({ isOpen, viewGalleriesElements, close }) => {
   const {
     swapi: { posts, galleries },
   } = useStaticQuery(pageQuery);
 
+  const viewContext = React.useContext(DeviceViewContext);
+
+  const inputRef = React.useRef(null);
+
   const { search, searchedResoults } = useHooks(posts, galleries);
 
-  const [selectedImage, setSelectedImage] = useState(-1);
+  const { setCurrentUsageGalleries, setSelectedImage } = viewGalleriesElements;
 
-  console.log(searchedResoults);
-  console.log(selectedImage);
+  React.useEffect(() => {
+    if (isOpen) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
 
   return (
-    <MainWrapper isOpen={isOpen}>
-      {selectedImage !== -1 && (
-        <SpecificViewImage
-          galleries={searchedResoults.galleries}
-          currImage={selectedImage}
-          close={() => setSelectedImage(-1)}
-        />
-      )}
-      <InputWrapper>
+    <MainWrapper
+      isOpen={isOpen}
+      onClick={(event) =>
+        event.target === event.currentTarget &&
+        (viewContext.deviceType === viewContext.deviceTypes[2] ||
+          viewContext.deviceType === viewContext.deviceTypes[3]) &&
+        close()
+      }
+    >
+      <InputWrapper
+        isSerached={
+          (searchedResoults !== null && searchedResoults.galleries.length) ||
+          (searchedResoults !== null && searchedResoults.posts.length)
+        }
+        isNoResoult={
+          searchedResoults !== null &&
+          searchedResoults.galleries.length === 0 &&
+          searchedResoults.posts.length === 0
+        }
+      >
         <SearchIcon src={darkLoupe} alt="loupeIcon" />
-        <Input placeholder="Szukaj..." onChange={debounce(search, 500)} />
+        <Input
+          placeholder="Szukaj..."
+          onChange={debounce(search, 500)}
+          ref={inputRef}
+        />
       </InputWrapper>
-      <PostsWrapper>
-        {searchedResoults !== null && searchedResoults.posts.length !== 0 && (
-          <>
-            <CategoryTitle>Posty</CategoryTitle>
-            {searchedResoults.posts.map((post) => (
-              <PostMobile postData={post} isSmallMargin key={post.id} />
-            ))}
-          </>
-        )}
-      </PostsWrapper>
-      <PostsWrapper>
-        {searchedResoults !== null && searchedResoults.galleries.length !== 0 && (
-          <>
-            <CategoryTitle>Obrazy</CategoryTitle>
-            {searchedResoults.galleries.map((image, imageIndex) => (
-              <ImageMobile
-                imageData={image}
-                key={image.id}
-                openImage={() => setSelectedImage(imageIndex)}
-              />
-            ))}
-          </>
-        )}
-      </PostsWrapper>
+      {searchedResoults !== null && searchedResoults.posts.length !== 0 && (
+        <PostsWrapper>
+          <CategoryTitle>Posty</CategoryTitle>
+          {searchedResoults.posts.map((post) => (
+            <PostMobile postData={post} isSearchTemplate key={post.id} />
+          ))}
+        </PostsWrapper>
+      )}
+      {searchedResoults !== null && searchedResoults.galleries.length !== 0 && (
+        <PostsWrapper>
+          <CategoryTitle>Obrazy</CategoryTitle>
+          {searchedResoults.galleries.map((image, imageIndex) => (
+            <ImageMobile
+              imageData={image}
+              key={image.id}
+              openImage={() => {
+                setCurrentUsageGalleries(searchedResoults.galleries);
+                setSelectedImage(imageIndex);
+              }}
+            />
+          ))}
+        </PostsWrapper>
+      )}
     </MainWrapper>
   );
 };
