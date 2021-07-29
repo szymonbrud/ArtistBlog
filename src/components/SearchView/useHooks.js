@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-const useHooks = (posts, galleries) => {
+export const InputStates = ['DEFAULT', 'LOADED', 'NO_RESOULTS'];
+const [STATE_DEFAULT, STATE_LOADED, STATE_NORESOULTS] = InputStates;
+
+const useHooks = (posts, galleries, isOpen) => {
   const [searchedResoults, setSearchedResoults] = useState(null);
+  const [inputState, setInputState] = useState(STATE_DEFAULT);
 
   const search = (event) => {
     const { value: searchValue } = event.target;
@@ -23,15 +27,30 @@ const useHooks = (posts, galleries) => {
           gallerieElement.desc.toLowerCase().includes(searchValue.toLowerCase())
       );
 
-      setSearchedResoults({
-        posts: filteredPosts,
-        galleries: filteredGalleries,
-      });
+      if (filteredPosts.length !== 0 || filteredGalleries.length !== 0) {
+        setInputState(STATE_LOADED);
+        setSearchedResoults({
+          posts: filteredPosts,
+          galleries: filteredGalleries,
+        });
+      } else {
+        setInputState(STATE_NORESOULTS);
+        setSearchedResoults(null);
+      }
     } else {
+      setInputState(STATE_DEFAULT);
       setSearchedResoults(null);
     }
   };
 
-  return { search, searchedResoults };
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
+  return { search, searchedResoults, inputRef, inputState };
 };
 export default useHooks;

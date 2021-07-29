@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import debounce from 'lodash.debounce';
+import PropTypes from 'prop-types';
 
 import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
@@ -10,7 +11,7 @@ import SearchViewContext from 'context/SearchViewContext';
 
 import darkLoupe from 'images/darkLoupe.svg';
 
-import useHooks from './useHooks';
+import useHooks, { InputStates } from './useHooks';
 
 import {
   MainWrapper,
@@ -43,27 +44,25 @@ const pageQuery = graphql`
   }
 `;
 
-const SearchView = ({ viewGalleriesElements }) => {
+const SearchView = ({
+  viewGalleriesElements: { setCurrentUsageGalleries, setSelectedImage },
+}) => {
   const {
     swapi: { posts, galleries },
   } = useStaticQuery(pageQuery);
 
-  const viewContext = React.useContext(DeviceViewContext);
-  const { isSearchViewOpen: isOpen, setIsSearchViewOpen } = React.useContext(
+  const viewContext = useContext(DeviceViewContext);
+  const { isSearchViewOpen: isOpen, setIsSearchViewOpen } = useContext(
     SearchViewContext
   );
 
-  const inputRef = React.useRef(null);
+  const { search, searchedResoults, inputRef, inputState } = useHooks(
+    posts,
+    galleries,
+    isOpen
+  );
 
-  const { search, searchedResoults } = useHooks(posts, galleries);
-
-  const { setCurrentUsageGalleries, setSelectedImage } = viewGalleriesElements;
-
-  React.useEffect(() => {
-    if (isOpen) {
-      inputRef.current.focus();
-    }
-  }, [isOpen]);
+  const [, STATE_LOADED, STATE_NORESOULTS] = InputStates;
 
   return (
     <MainWrapper
@@ -76,15 +75,8 @@ const SearchView = ({ viewGalleriesElements }) => {
       }
     >
       <InputWrapper
-        isSerached={
-          (searchedResoults !== null && searchedResoults.galleries.length) ||
-          (searchedResoults !== null && searchedResoults.posts.length)
-        }
-        isNoResoult={
-          searchedResoults !== null &&
-          searchedResoults.galleries.length === 0 &&
-          searchedResoults.posts.length === 0
-        }
+        isSerached={inputState === STATE_LOADED}
+        isNoResoult={inputState === STATE_NORESOULTS}
       >
         <SearchIcon src={darkLoupe} alt="loupeIcon" />
         <Input
@@ -118,6 +110,20 @@ const SearchView = ({ viewGalleriesElements }) => {
       )}
     </MainWrapper>
   );
+};
+
+SearchView.propTypes = {
+  viewGalleriesElements: PropTypes.shape({
+    setCurrentUsageGalleries: PropTypes.func,
+    setSelectedImage: PropTypes.func,
+  }),
+};
+
+SearchView.defaultProps = {
+  viewGalleriesElements: {
+    setCurrentUsageGalleries: () => {},
+    setSelectedImage: () => {},
+  },
 };
 
 export default SearchView;
