@@ -6,6 +6,7 @@ import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
 
 import DeviceViewContext from 'context';
+import SearchViewContext from 'context/SearchViewContext';
 
 import darkLoupe from 'images/darkLoupe.svg';
 
@@ -42,12 +43,15 @@ const pageQuery = graphql`
   }
 `;
 
-const SearchView = ({ isOpen, viewGalleriesElements, close }) => {
+const SearchView = ({ viewGalleriesElements }) => {
   const {
     swapi: { posts, galleries },
   } = useStaticQuery(pageQuery);
 
   const viewContext = React.useContext(DeviceViewContext);
+  const { isSearchViewOpen: isOpen, setIsSearchViewOpen } = React.useContext(
+    SearchViewContext
+  );
 
   const inputRef = React.useRef(null);
 
@@ -68,7 +72,7 @@ const SearchView = ({ isOpen, viewGalleriesElements, close }) => {
         event.target === event.currentTarget &&
         (viewContext.deviceType === viewContext.deviceTypes[2] ||
           viewContext.deviceType === viewContext.deviceTypes[3]) &&
-        close()
+        setIsSearchViewOpen(false)
       }
     >
       <InputWrapper

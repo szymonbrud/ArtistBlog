@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { css } from 'styled-components';
 
 import DeviceViewContext from 'context';
+import SearchViewContext from 'context/SearchViewContext';
 
 import Logo from 'components/Logo';
 import SwitchThemeButton from 'components/SwitchThemeButton';
@@ -37,8 +38,11 @@ const menuElements = [
   },
 ];
 
-const TopBarMobile = ({ setIsSearchViewOpen, isSearchViewOpen }) => {
+const TopBarMobile = () => {
   const devicesContext = useContext(DeviceViewContext);
+  const { isSearchViewOpen, setIsSearchViewOpen } = useContext(
+    SearchViewContext
+  );
   const { isMenuOpen, setIsMenuOpen } = useHooks();
 
   const topBarPaddingLeft =

@@ -5,6 +5,7 @@ import propTypes from 'prop-types';
 import loupeSvg from 'images/loupe.svg';
 
 import DeviceViewContext from 'context';
+import SearchViewContext from 'context/SearchViewContext';
 
 import Logo from 'components/Logo';
 import SwitchThemeButton from 'components/SwitchThemeButton';
@@ -17,7 +18,6 @@ import {
   Line,
   SearchIcon,
   SearchWrapper,
-  NoResoults,
 } from './styles';
 
 const menuElements = [
@@ -35,8 +35,10 @@ const menuElements = [
   },
 ];
 
-const TopBarDesktop = ({ deviceSettings, setIsSearchViewOpen }) => {
+const TopBarDesktop = ({ deviceSettings }) => {
   const deviceContext = useContext(DeviceViewContext);
+  const searchViewContext = useContext(SearchViewContext);
+  const { setIsSearchViewOpen } = searchViewContext;
 
   let marginForLogo = null;
   let marginLeft = null;

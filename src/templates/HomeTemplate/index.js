@@ -12,6 +12,7 @@ import SpecificViewImage from 'components/SpecificViewImage';
 import SearchView from 'components/SearchView';
 
 import DeviceViewContext from 'context';
+import { SearchViewContextProvider } from 'context/SearchViewContext';
 
 import {
   PostWrapper,
@@ -53,7 +54,6 @@ const HeroTemplate = () => {
   const deviceContext = useContext(DeviceViewContext);
 
   const [selectedImage, setSelectedImage] = useState(-1);
-  const [isSearchViewOpen, setIsSearchViewOpen] = useState(false);
 
   const [currentUsageGalleries, setCurrentUsageGalleries] = useState([]);
 
@@ -67,52 +67,49 @@ const HeroTemplate = () => {
   }
 
   return (
-    <GlobalStyleProvider isBodyOverflowHidden={isSearchViewOpen}>
-      <>
-        <TopBarMobile
-          setIsSearchViewOpen={setIsSearchViewOpen}
-          isSearchViewOpen={isSearchViewOpen}
-        />
-        <TopBarDesktop setIsSearchViewOpen={setIsSearchViewOpen} />
-        {selectedImage !== -1 && (
-          <SpecificViewImage
-            galleries={currentUsageGalleries}
-            currImage={selectedImage}
-            close={() => setSelectedImage(-1)}
+    <SearchViewContextProvider>
+      <GlobalStyleProvider>
+        <>
+          <TopBarMobile />
+          <TopBarDesktop />
+          {selectedImage !== -1 && (
+            <SpecificViewImage
+              galleries={currentUsageGalleries}
+              currImage={selectedImage}
+              close={() => setSelectedImage(-1)}
+            />
+          )}
+          <SearchView
+            viewGalleriesElements={{
+              setCurrentUsageGalleries,
+              setSelectedImage,
+            }}
           />
-        )}
-        <SearchView
-          isOpen={isSearchViewOpen}
-          close={() => setIsSearchViewOpen(false)}
-          viewGalleriesElements={{
-            setCurrentUsageGalleries,
-            setSelectedImage,
-          }}
-        />
-        <GridWrapper marginForLeft={marginForLeft}>
-          <PostWrapper>
-            <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
-            {posts.map((post) => (
-              <PostMobile key={post.id} postData={post} />
-            ))}
-          </PostWrapper>
-          <GalleryWrapper>
-            <SectionTitle>Ostatnio opublikowane obrazy</SectionTitle>
-            {galleries.map((image, imageIndex) => (
-              <ImageMobile
-                imageData={image}
-                key={image.id}
-                openImage={() => {
-                  setSelectedImage(imageIndex);
-                  setCurrentUsageGalleries(galleries);
-                }}
-              />
-            ))}
-          </GalleryWrapper>
-        </GridWrapper>
-        <Footer />
-      </>
-    </GlobalStyleProvider>
+          <GridWrapper marginForLeft={marginForLeft}>
+            <PostWrapper>
+              <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
+              {posts.map((post) => (
+                <PostMobile key={post.id} postData={post} />
+              ))}
+            </PostWrapper>
+            <GalleryWrapper>
+              <SectionTitle>Ostatnio opublikowane obrazy</SectionTitle>
+              {galleries.map((image, imageIndex) => (
+                <ImageMobile
+                  imageData={image}
+                  key={image.id}
+                  openImage={() => {
+                    setSelectedImage(imageIndex);
+                    setCurrentUsageGalleries(galleries);
+                  }}
+                />
+              ))}
+            </GalleryWrapper>
+          </GridWrapper>
+          <Footer />
+        </>
+      </GlobalStyleProvider>
+    </SearchViewContextProvider>
   );
 };
 

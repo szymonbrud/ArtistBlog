@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import PropTypes, { element } from 'prop-types';
+
+import SearchViewContext from 'context/SearchViewContext';
 
 import { theme } from './theme';
 
@@ -30,21 +32,20 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const GlobalStyleProvider = ({ children, isBodyOverflowHidden }) => (
-  <>
-    <GlobalStyle isBodyOverflowHidden={isBodyOverflowHidden} />
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-  </>
-);
+const GlobalStyleProvider = ({ children }) => {
+  const { isSearchViewOpen } = useContext(SearchViewContext);
+
+  return (
+    <>
+      <GlobalStyle isBodyOverflowHidden={isSearchViewOpen} />
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </>
+  );
+};
 
 GlobalStyleProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(element), element])
     .isRequired,
-  isBodyOverflowHidden: PropTypes.bool,
-};
-
-GlobalStyleProvider.defaultProps = {
-  isBodyOverflowHidden: false,
 };
 
 export default GlobalStyleProvider;
