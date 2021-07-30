@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import debounce from 'lodash.debounce';
-import PropTypes from 'prop-types';
 
 import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
 
 import DeviceViewContext from 'context';
 import SearchViewContext from 'context/SearchViewContext';
+import SpecificViewContext from 'context/SpecificViewContext';
 
 import darkLoupe from 'images/darkLoupe.svg';
 
@@ -44,9 +44,7 @@ const pageQuery = graphql`
   }
 `;
 
-const SearchView = ({
-  viewGalleriesElements: { setCurrentUsageGalleries, setSelectedImage },
-}) => {
+const SearchView = () => {
   const {
     swapi: { posts, galleries },
   } = useStaticQuery(pageQuery);
@@ -55,6 +53,7 @@ const SearchView = ({
   const { isSearchViewOpen: isOpen, setIsSearchViewOpen } = useContext(
     SearchViewContext
   );
+  const { setCurrentImageAndGalleries } = useContext(SpecificViewContext);
 
   const { search, searchedResoults, inputRef, inputState } = useHooks(
     posts,
@@ -100,30 +99,18 @@ const SearchView = ({
             <ImageMobile
               imageData={image}
               key={image.id}
-              openImage={() => {
-                setCurrentUsageGalleries(searchedResoults.galleries);
-                setSelectedImage(imageIndex);
-              }}
+              openImage={() =>
+                setCurrentImageAndGalleries(
+                  imageIndex,
+                  searchedResoults.galleries
+                )
+              }
             />
           ))}
         </PostsWrapper>
       )}
     </MainWrapper>
   );
-};
-
-SearchView.propTypes = {
-  viewGalleriesElements: PropTypes.shape({
-    setCurrentUsageGalleries: PropTypes.func,
-    setSelectedImage: PropTypes.func,
-  }),
-};
-
-SearchView.defaultProps = {
-  viewGalleriesElements: {
-    setCurrentUsageGalleries: () => {},
-    setSelectedImage: () => {},
-  },
 };
 
 export default SearchView;

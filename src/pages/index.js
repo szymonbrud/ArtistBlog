@@ -4,6 +4,7 @@ import GlobalStyleProvider from 'styles/globalStyles';
 
 import { DeviceViewContextProvider } from 'context';
 import { SearchViewContextProvider } from 'context/SearchViewContext';
+import { SpecificViewContextProvider } from 'context/SpecificViewContext';
 
 import HomeTemplate from 'templates/HomeTemplate';
 
@@ -11,11 +12,13 @@ import './styles.css';
 
 const IndexPage = () => (
   <SearchViewContextProvider>
-    <GlobalStyleProvider>
-      <DeviceViewContextProvider>
-        <HomeTemplate />
-      </DeviceViewContextProvider>
-    </GlobalStyleProvider>
+    <SpecificViewContextProvider>
+      <GlobalStyleProvider>
+        <DeviceViewContextProvider>
+          <HomeTemplate />
+        </DeviceViewContextProvider>
+      </GlobalStyleProvider>
+    </SpecificViewContextProvider>
   </SearchViewContextProvider>
 );
 

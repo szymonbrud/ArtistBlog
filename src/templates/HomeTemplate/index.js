@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import TopBarMobile from 'components/TopBarMobile';
@@ -10,6 +10,7 @@ import SpecificViewImage from 'components/SpecificViewImage';
 import SearchView from 'components/SearchView';
 
 import DeviceViewContext from 'context';
+import SpecificViewContext from 'context/SpecificViewContext';
 
 import {
   PostWrapper,
@@ -49,10 +50,7 @@ const HeroTemplate = () => {
   } = useStaticQuery(pageQuery);
 
   const deviceContext = useContext(DeviceViewContext);
-
-  const [selectedImage, setSelectedImage] = useState(-1);
-
-  const [currentUsageGalleries, setCurrentUsageGalleries] = useState([]);
+  const { setCurrentImageAndGalleries } = useContext(SpecificViewContext);
 
   let marginForLeft = null;
 
@@ -67,19 +65,8 @@ const HeroTemplate = () => {
     <>
       <TopBarMobile />
       <TopBarDesktop />
-      {selectedImage !== -1 && (
-        <SpecificViewImage
-          galleries={currentUsageGalleries}
-          currImage={selectedImage}
-          close={() => setSelectedImage(-1)}
-        />
-      )}
-      <SearchView
-        viewGalleriesElements={{
-          setCurrentUsageGalleries,
-          setSelectedImage,
-        }}
-      />
+      <SpecificViewImage />
+      <SearchView />
       <GridWrapper marginForLeft={marginForLeft}>
         <PostWrapper>
           <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
@@ -93,10 +80,9 @@ const HeroTemplate = () => {
             <ImageMobile
               imageData={image}
               key={image.id}
-              openImage={() => {
-                setSelectedImage(imageIndex);
-                setCurrentUsageGalleries(galleries);
-              }}
+              openImage={() =>
+                setCurrentImageAndGalleries(imageIndex, galleries)
+              }
             />
           ))}
         </GalleryWrapper>

@@ -1,11 +1,12 @@
 /* eslint consistent-return: "off" */
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import DeviceViewContext from 'context';
-import propTypes from 'prop-types';
 
 import TopBarMobile from 'components/TopBarMobile';
 import TopBarDesktop from 'components/TopBarDesktop';
+
+import SpecificViewContext from 'context/SpecificViewContext';
 
 import {
   MainWrapper,
@@ -22,10 +23,15 @@ import {
   TitleDescPositionWrapper,
 } from './styles';
 
-const SpecificViewImage = ({ galleries, currImage, close }) => {
-  const [currImg, setCurrImg] = useState(currImage);
-
+const SpecificViewImage = () => {
   const devicesContext = useContext(DeviceViewContext);
+  const { galleries, currentImage, close } = useContext(SpecificViewContext);
+
+  const [currImg, setCurrImg] = useState(currentImage);
+
+  useEffect(() => {
+    setCurrImg(currentImage);
+  }, [currentImage]);
 
   const switchImage = (direction) => {
     if (direction === 'next') {
@@ -66,44 +72,31 @@ const SpecificViewImage = ({ galleries, currImage, close }) => {
     event.target === event.currentTarget && close();
 
   return (
-    <MainWrapper onClick={closeByTarget}>
-      <TopBarMobile />
-      <TopBarDesktop />
-      <CloseButton onClick={close}>close</CloseButton>
-      <DesktopPosstionWrapper onClick={closeByTarget}>
-        <Image src={galleries[currImg].image.url} style={imageSize()} />
-        <TitleAndDescWrapper>
-          <TitleDescPositionWrapper>
-            <Title>{galleries[currImg].title}</Title>
-            <Description>{galleries[currImg].desc}</Description>
-          </TitleDescPositionWrapper>
-          <Date>18.02.2020</Date>
-        </TitleAndDescWrapper>
-      </DesktopPosstionWrapper>
-      <ButtonsWrapper onClick={closeByTarget}>
-        <Button onClick={() => switchImage('prev')}>prev</Button>
-        <Line />
-        <Button onClick={() => switchImage('next')}>next</Button>
-      </ButtonsWrapper>
+    <MainWrapper onClick={closeByTarget} isOpen={currImg !== -1}>
+      {currImg !== -1 && galleries !== null && (
+        <>
+          <TopBarMobile />
+          <TopBarDesktop />
+          <CloseButton onClick={close}>close</CloseButton>
+          <DesktopPosstionWrapper onClick={closeByTarget}>
+            <Image src={galleries[currImg].image.url} style={imageSize()} />
+            <TitleAndDescWrapper>
+              <TitleDescPositionWrapper>
+                <Title>{galleries[currImg].title}</Title>
+                <Description>{galleries[currImg].desc}</Description>
+              </TitleDescPositionWrapper>
+              <Date>18.02.2020</Date>
+            </TitleAndDescWrapper>
+          </DesktopPosstionWrapper>
+          <ButtonsWrapper onClick={closeByTarget}>
+            <Button onClick={() => switchImage('prev')}>prev</Button>
+            <Line />
+            <Button onClick={() => switchImage('next')}>next</Button>
+          </ButtonsWrapper>
+        </>
+      )}
     </MainWrapper>
   );
-};
-
-SpecificViewImage.propTypes = {
-  currImage: propTypes.number.isRequired,
-  close: propTypes.func.isRequired,
-  galleries: propTypes.arrayOf(
-    propTypes.shape({
-      desc: propTypes.string,
-      id: propTypes.string,
-      image: propTypes.shape({
-        height: propTypes.number,
-        url: propTypes.string,
-        width: propTypes.number,
-      }),
-      title: propTypes.string,
-    })
-  ).isRequired,
 };
 
 export default SpecificViewImage;

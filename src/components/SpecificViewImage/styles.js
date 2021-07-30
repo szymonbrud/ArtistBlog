@@ -14,7 +14,7 @@ export const MainWrapper = styled.section`
   overflow-y: scroll;
   overflow-x: hidden;
 
-  display: flex;
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   flex-direction: column;
 
   ::before {
