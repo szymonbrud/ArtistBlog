@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 
-import TopBarMobile from 'components/TopBarMobile';
-import TopBarDesktop from 'components/TopBarDesktop';
 import PostMobile from 'components/PostMobile';
 import CategoriesMobile from 'components/CategoriesMobile';
 import Category from 'components/Category';
-import Footer from 'components/Footer';
 
 import DeviceViewContext from 'context';
 
@@ -38,8 +35,6 @@ const PostsTemplate = () => {
 
   return (
     <>
-      <TopBarMobile />
-      <TopBarDesktop />
       <CategoriesMobile
         categories={allCategories}
         setAllCategories={setAllCategories}
@@ -62,7 +57,6 @@ const PostsTemplate = () => {
           />
         </CategoryWrapper>
       </MainContainer>
-      <Footer />
     </>
   );
 };

@@ -1,19 +1,14 @@
 import * as React from 'react';
 
-import GlobalStyleProvider from 'styles/globalStyles';
-
-import { DeviceViewContextProvider } from 'context';
-
 import ContactTemplate from 'templates/ContactTemplate';
+import TemplateWrapper from 'templates/TemplateWrapper';
 
 import './styles.css';
 
 const ContactPage = () => (
-  <GlobalStyleProvider>
-    <DeviceViewContextProvider>
-      <ContactTemplate />
-    </DeviceViewContextProvider>
-  </GlobalStyleProvider>
+  <TemplateWrapper>
+    <ContactTemplate />
+  </TemplateWrapper>
 );
 
 export default ContactPage;

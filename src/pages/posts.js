@@ -1,22 +1,14 @@
 import * as React from 'react';
 
-import GlobalStyleProvider from 'styles/globalStyles';
-
-import { DeviceViewContextProvider } from 'context';
-import { SearchViewContextProvider } from 'context/SearchViewContext';
-
 import PostsTemplate from 'templates/PostsTemplate';
+import TemplateWrapper from 'templates/TemplateWrapper';
 
 import './styles.css';
 
 const PostsPage = () => (
-  <SearchViewContextProvider>
-    <GlobalStyleProvider>
-      <DeviceViewContextProvider>
-        <PostsTemplate />
-      </DeviceViewContextProvider>
-    </GlobalStyleProvider>
-  </SearchViewContextProvider>
+  <TemplateWrapper>
+    <PostsTemplate />
+  </TemplateWrapper>
 );
 
 export default PostsPage;

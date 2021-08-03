@@ -1,13 +1,8 @@
 import React, { useContext } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import TopBarMobile from 'components/TopBarMobile';
 import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
-import Footer from 'components/Footer';
-import TopBarDesktop from 'components/TopBarDesktop';
-import SpecificViewImage from 'components/SpecificViewImage';
-import SearchView from 'components/SearchView';
 
 import DeviceViewContext from 'context';
 import SpecificViewContext from 'context/SpecificViewContext';
@@ -62,33 +57,24 @@ const HeroTemplate = () => {
   }
 
   return (
-    <>
-      <TopBarMobile />
-      <TopBarDesktop />
-      <SpecificViewImage />
-      <SearchView />
-      <GridWrapper marginForLeft={marginForLeft}>
-        <PostWrapper>
-          <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
-          {posts.map((post) => (
-            <PostMobile key={post.id} postData={post} />
-          ))}
-        </PostWrapper>
-        <GalleryWrapper>
-          <SectionTitle>Ostatnio opublikowane obrazy</SectionTitle>
-          {galleries.map((image, imageIndex) => (
-            <ImageMobile
-              imageData={image}
-              key={image.id}
-              openImage={() =>
-                setCurrentImageAndGalleries(imageIndex, galleries)
-              }
-            />
-          ))}
-        </GalleryWrapper>
-      </GridWrapper>
-      <Footer />
-    </>
+    <GridWrapper marginForLeft={marginForLeft}>
+      <PostWrapper>
+        <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
+        {posts.map((post) => (
+          <PostMobile key={post.id} postData={post} />
+        ))}
+      </PostWrapper>
+      <GalleryWrapper>
+        <SectionTitle>Ostatnio opublikowane obrazy</SectionTitle>
+        {galleries.map((image, imageIndex) => (
+          <ImageMobile
+            imageData={image}
+            key={image.id}
+            openImage={() => setCurrentImageAndGalleries(imageIndex, galleries)}
+          />
+        ))}
+      </GalleryWrapper>
+    </GridWrapper>
   );
 };
 

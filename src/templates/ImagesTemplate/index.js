@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import TopBarMobile from 'components/TopBarMobile';
-import TopBarDesktop from 'components/TopBarDesktop';
-import Footer from 'components/Footer';
-import SpecificViewImage from 'components/SpecificViewImage';
+import SpecificViewContext from 'context/SpecificViewContext';
 
 import {
   SectionTitle,
@@ -37,32 +34,25 @@ const ImagesTemplate = () => {
     swapi: { galleries },
   } = useStaticQuery(graphqlQuary);
 
-  const [selectedImage, setSelectedImage] = useState(-1);
+  const { setCurrentImageAndGalleries, currentImage } = useContext(
+    SpecificViewContext
+  );
 
   return (
-    <>
-      <TopBarMobile />
-      <TopBarDesktop />
-      {selectedImage !== -1 && (
-        <SpecificViewImage
-          galleries={galleries}
-          currImage={selectedImage}
-          close={() => setSelectedImage(-1)}
-        />
-      )}
-      <MainWrapper isScrollAllow={selectedImage !== -1}>
-        <SectionTitle>Sztuka</SectionTitle>
-        <ImagesWrapper>
-          {galleries.map(({ image, id }, index) => (
-            <ImageWrapper key={id} onClick={() => setSelectedImage(index)}>
-              <Image imageURL={image.url} />
-              <ImageMoreButton>więcej</ImageMoreButton>
-            </ImageWrapper>
-          ))}
-        </ImagesWrapper>
-      </MainWrapper>
-      <Footer />
-    </>
+    <MainWrapper isScrollAllow={currentImage !== -1}>
+      <SectionTitle>Sztuka</SectionTitle>
+      <ImagesWrapper>
+        {galleries.map(({ image, id }, index) => (
+          <ImageWrapper
+            key={id}
+            onClick={() => setCurrentImageAndGalleries(index, galleries)}
+          >
+            <Image imageURL={image.url} />
+            <ImageMoreButton>więcej</ImageMoreButton>
+          </ImageWrapper>
+        ))}
+      </ImagesWrapper>
+    </MainWrapper>
   );
 };
 

@@ -13,6 +13,8 @@ export const MainWrapper = styled.section`
   background: white;
   transform: translateY(100%);
 
+  z-index: 10;
+
   transition: transform 0.2s;
 
   ${({ isOpen }) =>
