@@ -9,7 +9,7 @@ import SpecificViewImage from 'components/SpecificViewImage';
 import SearchView from 'components/SearchView';
 import Footer from 'components/Footer';
 
-import { DeviceViewContextProvider } from 'context';
+import { DeviceViewContextProvider } from 'context/DeviceViewContext';
 import { SearchViewContextProvider } from 'context/SearchViewContext';
 import { SpecificViewContextProvider } from 'context/SpecificViewContext';
 

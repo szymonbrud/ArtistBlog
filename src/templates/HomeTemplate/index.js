@@ -4,7 +4,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
 
-import DeviceViewContext from 'context';
+import DeviceViewContext from 'context/DeviceViewContext';
 import SpecificViewContext from 'context/SpecificViewContext';
 
 import {

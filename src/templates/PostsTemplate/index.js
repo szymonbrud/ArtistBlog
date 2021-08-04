@@ -4,7 +4,7 @@ import PostMobile from 'components/PostMobile';
 import CategoriesMobile from 'components/CategoriesMobile';
 import Category from 'components/Category';
 
-import DeviceViewContext from 'context';
+import DeviceViewContext from 'context/DeviceViewContext';
 
 import {
   MainWrapper,

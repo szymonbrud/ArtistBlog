@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import DeviceViewContext from 'context';
+import DeviceViewContext from 'context/DeviceViewContext';
 
 import propTypes from 'prop-types';
 

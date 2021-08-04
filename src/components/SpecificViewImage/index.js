@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
 
 import React, { useState, useContext, useEffect } from 'react';
-import DeviceViewContext from 'context';
+import DeviceViewContext from 'context/DeviceViewContext';
 
 import TopBarMobile from 'components/TopBarMobile';
 import TopBarDesktop from 'components/TopBarDesktop';

@@ -2,7 +2,7 @@ import { Link } from 'gatsby';
 import React, { useContext } from 'react';
 import { css } from 'styled-components';
 
-import DeviceViewContext from 'context';
+import DeviceViewContext from 'context/DeviceViewContext';
 import SearchViewContext from 'context/SearchViewContext';
 
 import Logo from 'components/Logo';

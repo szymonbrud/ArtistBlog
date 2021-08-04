@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce';
 import PostMobile from 'components/PostMobile';
 import ImageMobile from 'components/ImageMobile';
 
-import DeviceViewContext from 'context';
+import DeviceViewContext from 'context/DeviceViewContext';
 import SearchViewContext from 'context/SearchViewContext';
 import SpecificViewContext from 'context/SpecificViewContext';
 

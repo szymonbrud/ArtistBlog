@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 import loupeSvg from 'images/loupe.svg';
 
-import DeviceViewContext from 'context';
+import DeviceViewContext from 'context/DeviceViewContext';
 import SearchViewContext from 'context/SearchViewContext';
 
 import Logo from 'components/Logo';
