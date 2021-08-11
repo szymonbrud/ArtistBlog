@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import media from 'styles/media';
 
@@ -91,11 +91,15 @@ export const Description = styled.p`
   margin: 24px 0 0 25px;
   font-size: 18px;
   font-weight: 300;
-  padding-bottom: 55px;
+  padding-bottom: 100px;
 
   ${media.tablet`
     margin: 24px 0 0 75px;
     width: calc(100% - 75px * 2);
+  `}
+
+  ${media.smallDesktop`
+    padding-bottom: 55px;
   `}
 `;
 
@@ -118,11 +122,14 @@ export const ButtonsWrapper = styled.div`
   padding: 0 0 55px 0;
   flex-grow: 2;
 
+  display: none;
+
   ${media.tablet`
     padding: 25px 0 75px 0;
   `}
 
   ${media.smallDesktop`
+    display: flex;
     flex-grow: 0;
     padding: 25px 0 0 0;
   `}
@@ -159,26 +166,57 @@ export const Line = styled.div`
   margin: 0 29px;
 `;
 
-export const CloseButton = styled.button`
-  border: 0;
-  width: 136px;
-  height: 48px;
-  background-color: #878787;
-  color: white;
-  font-size: 18px;
-  font-weight: 400;
-  margin: 25px 0 0 0;
-  position: relative;
-  left: calc(100% - 136px);
-  flex-shrink: 0;
-
-  ${media.tablet`
-    width: 180px;
-    height: 58px;
-    left: calc(100% - 180px);
-  `}
+export const MobileButtonMenu = styled.nav`
+  width: 100%;
+  height: 69px;
+  background: white;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
   ${media.smallDesktop`
     display: none;
   `}
+`;
+
+const navButtonStyles = css`
+  height: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  flex-grow: 1;
+`;
+
+export const MobileCloseButton = styled.button`
+  ${navButtonStyles};
+  background-color: ${({ theme }) => theme.colors.background_gray};
+  font-size: 18px;
+
+  transition: background 0.2s, color 0.2s;
+
+  :hover {
+    background-color: black;
+    color: white;
+  }
+`;
+
+export const MobileNavButton = styled.button`
+  ${navButtonStyles};
+
+  transition: background 0.2s;
+
+  :hover {
+    background-color: #e1e1e1;
+  }
+`;
+
+export const ArrowIcon = styled.img`
+  ${({ left }) =>
+    left &&
+    css`
+      transform: rotate(180deg);
+    `}
 `;

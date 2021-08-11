@@ -8,6 +8,8 @@ import TopBarDesktop from 'components/TopBarDesktop';
 
 import SpecificViewContext from 'context/SpecificViewContext';
 
+import arrowRight from 'images/arrow_right.svg';
+
 import {
   MainWrapper,
   Description,
@@ -16,11 +18,14 @@ import {
   Button,
   ButtonsWrapper,
   Line,
-  CloseButton,
   DesktopPosstionWrapper,
   TitleAndDescWrapper,
   Date,
   TitleDescPositionWrapper,
+  MobileButtonMenu,
+  ArrowIcon,
+  MobileCloseButton,
+  MobileNavButton,
 } from './styles';
 
 const SpecificViewImage = () => {
@@ -77,7 +82,6 @@ const SpecificViewImage = () => {
         <>
           <TopBarMobile />
           <TopBarDesktop />
-          <CloseButton onClick={close}>close</CloseButton>
           <DesktopPosstionWrapper onClick={closeByTarget}>
             <Image src={galleries[currImg].image.url} style={imageSize()} />
             <TitleAndDescWrapper>
@@ -93,6 +97,15 @@ const SpecificViewImage = () => {
             <Line />
             <Button onClick={() => switchImage('next')}>next</Button>
           </ButtonsWrapper>
+          <MobileButtonMenu>
+            <MobileNavButton onClick={() => switchImage('prev')}>
+              <ArrowIcon src={arrowRight} alt="prev photo" left />
+            </MobileNavButton>
+            <MobileCloseButton onClick={close}>close</MobileCloseButton>
+            <MobileNavButton onClick={() => switchImage('next')}>
+              <ArrowIcon src={arrowRight} alt="next photo" />
+            </MobileNavButton>
+          </MobileButtonMenu>
         </>
       )}
     </MainWrapper>

@@ -3,6 +3,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import PropTypes, { element } from 'prop-types';
 
 import SearchViewContext from 'context/SearchViewContext';
+import SpecificViewContext from 'context/SpecificViewContext';
 
 import { theme } from './theme';
 
@@ -34,10 +35,13 @@ const GlobalStyle = createGlobalStyle`
 
 const GlobalStyleProvider = ({ children }) => {
   const { isSearchViewOpen } = useContext(SearchViewContext);
+  const { currentImage } = useContext(SpecificViewContext);
 
   return (
     <>
-      <GlobalStyle isBodyOverflowHidden={isSearchViewOpen} />
+      <GlobalStyle
+        isBodyOverflowHidden={isSearchViewOpen || currentImage !== -1}
+      />
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </>
   );
