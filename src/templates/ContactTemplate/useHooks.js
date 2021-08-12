@@ -5,6 +5,8 @@ const useHooks = () => {
   const topicInputRef = useRef(null);
   const contentInputRef = useRef(null);
 
+  const [isTextCopied, setIsTextCopied] = useState(false);
+
   const inputsRef = {
     emailInputRef,
     topicInputRef,
@@ -27,10 +29,26 @@ const useHooks = () => {
     }
   };
 
+  const copyText = () => {
+    navigator.clipboard
+      .writeText('plastpage@gmail.com')
+      .then(() => {
+        if (!isTextCopied) {
+          setTimeout(() => {
+            setIsTextCopied(false);
+          }, 4000);
+          setIsTextCopied(true);
+        }
+      })
+      .catch(() => console.error('Could not coppy the text!'));
+  };
+
   return {
     inputsRef,
     validateForm,
     isSendButtonDisabled,
+    copyText,
+    isTextCopied,
   };
 };
 

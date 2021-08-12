@@ -163,4 +163,5 @@ export const TextAlternativeSend = styled.p`
 
 export const TextBold = styled.span`
   font-weight: 500;
+  cursor: pointer;
 `;
