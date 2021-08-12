@@ -17,7 +17,13 @@ import {
 } from './styles';
 
 const ContactTemplate = () => {
-  const { inputsRef, isSendButtonDisabled, validateForm } = useHooks();
+  const {
+    inputsRef,
+    isSendButtonDisabled,
+    validateForm,
+    isTextCopied,
+    copyText,
+  } = useHooks();
 
   return (
     <MainWrapper>
@@ -51,8 +57,11 @@ const ContactTemplate = () => {
         <SendButton disabled={isSendButtonDisabled}>wyślij</SendButton>
       </Form>
       <TextAlternativeSend>
-        Jeśli nie możesz skożystać z formulaża to zapraszam do kontaktu na email{' '}
-        <br /> <TextBold>plastpage@gmail.com</TextBold>
+        Jeśli nie możesz skożystać z formulaża to zapraszam do kontaktu na email
+        <br />
+        <TextBold onClick={copyText}>
+          {isTextCopied ? 'Skopiowano!' : 'plastpage@gmail.com'}
+        </TextBold>
       </TextAlternativeSend>
     </MainWrapper>
   );
