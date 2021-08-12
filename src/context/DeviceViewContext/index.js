@@ -12,14 +12,16 @@ const defaultContext = {
   height: 0,
 };
 
+const isBrowser = () => typeof window !== 'undefined';
+
 const DeviceViewContext = React.createContext(defaultContext);
 
 export const DeviceViewContextProvider = ({ children }) => {
   const [context, setContext] = useState({ defaultContext });
 
   const setAllDiviceSettings = () => {
-    const pageWidth = window.outerWidth;
-    const pageHeight = window.outerHeight;
+    const pageWidth = isBrowser() ? window.outerWidth : 0;
+    const pageHeight = isBrowser() ? window.outerHeight : 0;
 
     let currentDevice = null;
 
@@ -41,7 +43,9 @@ export const DeviceViewContextProvider = ({ children }) => {
     setAllDiviceSettings();
   }, []);
 
-  window.addEventListener('resize', debounce(setAllDiviceSettings, 150));
+  if (isBrowser()) {
+    window.addEventListener('resize', debounce(setAllDiviceSettings, 150));
+  }
 
   return (
     <DeviceViewContext.Provider value={context}>
