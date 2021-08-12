@@ -4,7 +4,7 @@ import { OneLetterInName } from './styles';
 
 const Logo = () => (
   <p>
-    <OneLetterInName>B</OneLetterInName>rudplast
+    <OneLetterInName>P</OneLetterInName>lastpage
   </p>
 );
 

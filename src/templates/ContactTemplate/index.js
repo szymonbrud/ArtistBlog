@@ -52,7 +52,7 @@ const ContactTemplate = () => {
       </Form>
       <TextAlternativeSend>
         Jeśli nie możesz skożystać z formulaża to zapraszam do kontaktu na email{' '}
-        <br /> <TextBold>brudplast@gmail.com</TextBold>
+        <br /> <TextBold>plastpage@gmail.com</TextBold>
       </TextAlternativeSend>
     </MainWrapper>
   );

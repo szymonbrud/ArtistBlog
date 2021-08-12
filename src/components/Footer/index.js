@@ -49,11 +49,11 @@ const Footer = ({ deviceSettings }) => {
         </AuthorWrapper>
         <ContactWrapper>
           <SectionName>Kontakt:</SectionName>
-          <SectionContent>Brudplast@gmail.com</SectionContent>
+          <SectionContent>plastpage@gmail.com</SectionContent>
         </ContactWrapper>
         <Line />
         <PrivacyPolicy>
-          Polityka prywatności © 2021 Brudplast.
+          Polityka prywatności © 2021 PlastPage.
           <br /> All rights reserved
         </PrivacyPolicy>
       </GridWrapper>
