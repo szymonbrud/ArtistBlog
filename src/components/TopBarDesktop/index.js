@@ -56,23 +56,27 @@ const TopBarDesktop = ({ deviceSettings }) => {
 
   return (
     <MainWrapper>
-      <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-        <LogoWrapper marginWidth={marginForLogo}>
-          <Logo />
-        </LogoWrapper>
-      </Link>
-      <MenuWrapper>
-        {menuElements.map(({ title, link }) => (
-          <MenuItems key={link} marginleftsize={marginLeft} to={link}>
-            {title}
-          </MenuItems>
-        ))}
-        <Line />
-        <SearchWrapper onClick={() => setIsSearchViewOpen(true)}>
-          <SearchIcon src={loupeSvg} alt="search" />
-        </SearchWrapper>
-        <SwitchThemeButton />
-      </MenuWrapper>
+      {deviceContext.deviceType !== '' && (
+        <>
+          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+            <LogoWrapper marginWidth={marginForLogo}>
+              <Logo />
+            </LogoWrapper>
+          </Link>
+          <MenuWrapper>
+            {menuElements.map(({ title, link }) => (
+              <MenuItems key={link} marginleftsize={marginLeft} to={link}>
+                {title}
+              </MenuItems>
+            ))}
+            <Line />
+            <SearchWrapper onClick={() => setIsSearchViewOpen(true)}>
+              <SearchIcon src={loupeSvg} alt="search" />
+            </SearchWrapper>
+            <SwitchThemeButton />
+          </MenuWrapper>
+        </>
+      )}
     </MainWrapper>
   );
 };
