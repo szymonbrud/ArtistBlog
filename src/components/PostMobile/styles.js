@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import Img from 'gatsby-image';
+
 export const PostWrapper = styled.article`
   width: 100%;
   display: flex;
@@ -43,8 +45,9 @@ export const PostWrapper = styled.article`
         `}
 `;
 
-export const Image = styled.img`
+export const Image = styled(Img)`
   width: 100%;
+  height: 100vmin;
 `;
 
 export const Title = styled.h2`

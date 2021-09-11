@@ -105,6 +105,7 @@ exports.sourceNodes = async ({
   const body = JSON.stringify({
     query: `query{
       posts{
+        id
         title
         image{
           url
@@ -127,6 +128,7 @@ exports.sourceNodes = async ({
       const node = {
         url: post.image.url,
         title: post.title,
+        postId: post.id,
         id: createNodeId(`Post-${post.title}`),
         internal: {
           type: 'Post',

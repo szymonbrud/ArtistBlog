@@ -36,13 +36,35 @@ const pageQuery = graphql`
         }
       }
     }
+    allPost {
+      nodes {
+        id
+        postId
+        myOwnImg {
+          childImageSharp {
+            fluid(maxWidth: 600, maxHeight: 600, fit: INSIDE) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
 const HeroTemplate = () => {
+  const staticQueryData = useStaticQuery(pageQuery);
+
   const {
     swapi: { posts, galleries },
-  } = useStaticQuery(pageQuery);
+  } = staticQueryData;
+
+  const {
+    allPost: { nodes: postsImages },
+  } = staticQueryData;
+
+  console.log(posts);
+  console.log(postsImages);
 
   const deviceContext = useContext(DeviceViewContext);
   const { setCurrentImageAndGalleries } = useContext(SpecificViewContext);
@@ -61,7 +83,11 @@ const HeroTemplate = () => {
       <PostWrapper>
         <SectionTitle>Ostatnio opublikowane posty</SectionTitle>
         {posts.map((post) => (
-          <PostMobile key={post.id} postData={post} />
+          <PostMobile
+            key={post.id}
+            postData={post}
+            image={postsImages.find((e) => e.postId === post.id)}
+          />
         ))}
       </PostWrapper>
       <GalleryWrapper>

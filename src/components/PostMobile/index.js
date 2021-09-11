@@ -9,8 +9,10 @@ import DateAndTime from 'components/DateAndTime';
 
 import { PostWrapper, Image, Title, Description } from './styles';
 
-const PostMobile = ({ postData, isSearchTemplate }) => {
-  const { title, shortDesc, date, readTime, image } = postData;
+const PostMobile = ({ postData, isSearchTemplate, image }) => {
+  const { title, shortDesc, date, readTime } = postData;
+
+  console.log(image);
 
   return (
     <PostWrapper isSmallMargin={isSearchTemplate}>
@@ -18,7 +20,16 @@ const PostMobile = ({ postData, isSearchTemplate }) => {
         to={`/post/${postData.id}`}
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        {image && <Image src={image.url} />}
+        {/*{image && <Image src={image.url} />}*/}
+        <Image
+          fixed={image.myOwnImg.childImageSharp.fluid}
+          // objectFit="fit"
+          objectPosition="50% 50%"
+          alt="Zdj"
+          // imgStyle={{ objectFit: 'contain' }}
+          imgStyle={{ objectFit: 'contain' }}
+          // style={{ margin: '1rem', width: '100vw' }}
+        />
         <Title>{title}</Title>
         <Description>{shortDesc}</Description>
         <DateAndTime
