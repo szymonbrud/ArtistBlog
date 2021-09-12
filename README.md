@@ -1,5 +1,5 @@
 ## live
-https://artistblog.gatsbyjs.io/images/
+https://artistblog.gatsbyjs.io
 
 ## how to run as developer
 
