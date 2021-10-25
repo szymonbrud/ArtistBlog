@@ -7,8 +7,6 @@ import TemplateWrapper from 'templates/TemplateWrapper';
 import './styles.css';
 
 const IndexPage = (props) => {
-  console.log(props);
-
   return (
     <TemplateWrapper>
       <HomeTemplate />

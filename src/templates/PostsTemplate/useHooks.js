@@ -16,6 +16,19 @@ const graphqlQuary = graphql`
         }
       }
     }
+    allPost {
+      nodes {
+        id
+        postId
+        myOwnImg {
+          childImageSharp {
+            fluid(maxWidth: 600, maxHeight: 600, fit: INSIDE) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -23,9 +36,15 @@ const useHook = () => {
   const [postsToShow, setPostsToShow] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
 
+  const staticQueryData = useStaticQuery(graphqlQuary);
+
   const {
     swapi: { posts },
-  } = useStaticQuery(graphqlQuary);
+  } = staticQueryData;
+
+  const {
+    allPost: { nodes: postsImages },
+  } = staticQueryData;
 
   const getAllCategories = () => {
     const categ = [];
@@ -79,6 +98,7 @@ const useHook = () => {
     allCategories,
     postsToShow,
     setAllCategories,
+    postsImages,
   };
 };
 

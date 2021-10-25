@@ -63,9 +63,6 @@ const HeroTemplate = () => {
     allPost: { nodes: postsImages },
   } = staticQueryData;
 
-  console.log(posts);
-  console.log(postsImages);
-
   const deviceContext = useContext(DeviceViewContext);
   const { setCurrentImageAndGalleries } = useContext(SpecificViewContext);
 

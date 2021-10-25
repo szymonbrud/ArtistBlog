@@ -16,7 +16,12 @@ import {
 import useHook from './useHooks';
 
 const PostsTemplate = () => {
-  const { allCategories, postsToShow, setAllCategories } = useHook();
+  const {
+    allCategories,
+    postsToShow,
+    setAllCategories,
+    postsImages,
+  } = useHook();
 
   const deviceContext = useContext(DeviceViewContext);
 
@@ -46,7 +51,11 @@ const PostsTemplate = () => {
             <h1>NIE MA POSTÓW DO WYŚwietlenia</h1>
           ) : (
             postsToShow.map((post) => (
-              <PostMobile key={post.id} postData={post} />
+              <PostMobile
+                key={post.id}
+                postData={post}
+                image={postsImages.find((e) => e.postId === post.id)}
+              />
             ))
           )}
         </MainWrapper>

@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components';
+import Img from 'gatsby-image';
 
 import media from 'styles/media';
-
-import Img from 'gatsby-image';
 
 export const PostWrapper = styled.article`
   width: 100%;
   display: flex;
   flex-direction: column;
+  max-width: 420px;
   margin-bottom: ${({ isSmallMargin }) => (isSmallMargin ? '30px' : '90px')};
 
   ${({ isSmallMargin }) =>
@@ -38,8 +38,11 @@ export const PostWrapper = styled.article`
             box-sizing: content-box;
             position: relative;
             top: -40px;
-            left: -20px;
+
             margin-bottom: 10px;
+            ${media.tablet`
+              left: -20px;
+            `}
           }
         `}
 `;
@@ -52,6 +55,9 @@ export const ImageWrapper = styled.div`
   ${({ imageAspectRatio }) =>
     imageAspectRatio &&
     css`
+      @media (min-width: 450px) {
+        height: ${420 / imageAspectRatio}px;
+      }
       ${media.tablet`
       height: ${307 / imageAspectRatio}px;
     `}
@@ -61,7 +67,7 @@ export const ImageWrapper = styled.div`
     `}
 `;
 
-export const Image = styled(Img)`
+export const GatsbyImage = styled(Img)`
   width: 100%;
   height: 100%;
   overflow: hidden;

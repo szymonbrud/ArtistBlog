@@ -14,9 +14,13 @@ export const PostWrapper = styled.section`
   padding: 55px 32px 0px;
   margin: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   ${media.tablet`
   padding: 0px 0 0;
+  display: block;
   `}
 `;
 
