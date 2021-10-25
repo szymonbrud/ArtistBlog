@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import media from 'styles/media';
+
 import Img from 'gatsby-image';
 
 export const PostWrapper = styled.article`
@@ -25,9 +27,6 @@ export const PostWrapper = styled.article`
           :hover {
             background-color: ${({ theme }) =>
               theme.colors.gray_background_dark};
-            /* padding: 26px 20px;
-            position: relative;
-            left: -20px; */
             box-sizing: content-box;
           }
         `
@@ -45,9 +44,27 @@ export const PostWrapper = styled.article`
         `}
 `;
 
+export const ImageWrapper = styled.div`
+  height: 250px;
+  width: 100%;
+  margin-bottom: 20px;
+
+  ${({ imageAspectRatio }) =>
+    imageAspectRatio &&
+    css`
+      ${media.tablet`
+      height: ${307 / imageAspectRatio}px;
+    `}
+      ${media.smallDesktop`
+      height: ${416 / imageAspectRatio}px;
+    `}
+    `}
+`;
+
 export const Image = styled(Img)`
   width: 100%;
-  height: 100vmin;
+  height: 100%;
+  overflow: hidden;
 `;
 
 export const Title = styled.h2`
