@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import media from 'styles/media';
+import Img from 'gatsby-image';
 
 export const MainWrapper = styled.main`
   width: 100%;
@@ -81,7 +82,19 @@ export const ImageWrapper = styled.div`
   `}
 `;
 
-export const Image = styled.div`
+export const ImageMoreButton = styled.p`
+  margin: 10px 0 0 23px;
+  color: ${({ theme }) => theme.colors.black_65};
+  font-size: 15px;
+
+  ${media.tablet`
+    display: none;
+  `}
+`;
+
+export const GatsbyImage = styled(Img)`
+  overflow: hidden;
+
   width: 100%;
   height: 100vw;
   background-position: center;
@@ -93,26 +106,16 @@ export const Image = styled.div`
   ${media.tablet`
     width: 200px;
     height: 200px;
-  `}
-
-  ${media.smallDesktop`
-    width: 300px;
-    height: 300px;
-
+    
     transition: transform .1s;
 
     :hover{
       transform: scale(1.05);
     }
   `}
-`;
 
-export const ImageMoreButton = styled.p`
-  margin: 10px 0 0 23px;
-  color: ${({ theme }) => theme.colors.black_65};
-  font-size: 15px;
-
-  ${media.tablet`
-    display: none;
+  ${media.smallDesktop`
+    width: 300px;
+    height: 300px;
   `}
 `;

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Img from 'gatsby-image';
 
 import media from 'styles/media';
 
@@ -48,7 +49,7 @@ export const DesktopPosstionWrapper = styled.div`
   `}
 `;
 
-export const Image = styled.img`
+export const Image = styled(Img)`
   width: 100%;
   ${media.smallDesktop`
     width: auto;

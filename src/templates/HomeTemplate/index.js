@@ -49,6 +49,19 @@ const pageQuery = graphql`
         }
       }
     }
+    allGallery {
+      nodes {
+        id
+        galleryId
+        myOwnImg {
+          childImageSharp {
+            fluid(maxWidth: 600, maxHeight: 600, fit: INSIDE) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -61,6 +74,10 @@ const HeroTemplate = () => {
 
   const {
     allPost: { nodes: postsImages },
+  } = staticQueryData;
+
+  const {
+    allGallery: { nodes: galleriesImages },
   } = staticQueryData;
 
   const deviceContext = useContext(DeviceViewContext);
@@ -91,7 +108,9 @@ const HeroTemplate = () => {
         <SectionTitle>Ostatnio opublikowane obrazy</SectionTitle>
         {galleries.map((image, imageIndex) => (
           <ImageMobile
+            // imageData={galleriesImages.find((e) => e.galleryId === image.id)}
             imageData={image}
+            img={galleriesImages.find((e) => e.galleryId === image.id)}
             key={image.id}
             openImage={() => setCurrentImageAndGalleries(imageIndex, galleries)}
           />

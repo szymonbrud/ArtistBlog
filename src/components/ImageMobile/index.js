@@ -1,20 +1,26 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import { Image, ImageWrapper, More } from './styles';
+import { ImageWrapper, More, GatsbyImage } from './styles';
 
-const ImageMobile = ({ imageData, openImage }) => {
-  const { image, title } = imageData;
+const ImageMobile = ({ imageData, openImage, img }) => {
+  const { title } = imageData;
 
   return (
     <ImageWrapper onClick={openImage}>
-      <Image src={image.url} alt={title} />
+      <GatsbyImage
+        imageAspectRatio={img.myOwnImg.childImageSharp.fluid.aspectRatio}
+        fixed={img.myOwnImg.childImageSharp.fluid}
+        objectPosition="50% 50%"
+        alt={title}
+      />
       <More>Więcej</More>
     </ImageWrapper>
   );
 };
 
 ImageMobile.propTypes = {
+  img: propTypes.any,
   imageData: propTypes.shape({
     id: propTypes.string.isRequired,
     title: propTypes.string.isRequired,

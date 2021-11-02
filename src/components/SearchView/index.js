@@ -41,13 +41,49 @@ const pageQuery = graphql`
         readTime
       }
     }
+    allGallery {
+      nodes {
+        id
+        galleryId
+        myOwnImg {
+          childImageSharp {
+            fluid(maxWidth: 600, maxHeight: 600, fit: INSIDE) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+    allPost {
+      nodes {
+        id
+        postId
+        myOwnImg {
+          childImageSharp {
+            fluid(maxWidth: 600, maxHeight: 600, fit: INSIDE) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
 const SearchView = () => {
+  const staticQueryData = useStaticQuery(pageQuery);
+
   const {
     swapi: { posts, galleries },
-  } = useStaticQuery(pageQuery);
+  } = staticQueryData;
+
+  const {
+    allPost: { nodes: allPosts },
+  } = staticQueryData;
+
+  const {
+    allGallery: { nodes: allGalleries },
+  } = staticQueryData;
 
   const viewContext = useContext(DeviceViewContext);
   const { isSearchViewOpen: isOpen, setIsSearchViewOpen } = useContext(
@@ -88,7 +124,12 @@ const SearchView = () => {
         <PostsWrapper>
           <CategoryTitle>Posty</CategoryTitle>
           {searchedResoults.posts.map((post) => (
-            <PostMobile postData={post} isSearchTemplate key={post.id} />
+            <PostMobile
+              postData={post}
+              isSearchTemplate
+              key={post.id}
+              image={allPosts.find((e) => e.postId === post.id)}
+            />
           ))}
         </PostsWrapper>
       )}
@@ -99,6 +140,7 @@ const SearchView = () => {
             <ImageMobile
               imageData={image}
               key={image.id}
+              img={allGalleries.find((e) => e.galleryId === image.id)}
               openImage={() =>
                 setCurrentImageAndGalleries(
                   imageIndex,

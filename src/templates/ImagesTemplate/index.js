@@ -6,10 +6,10 @@ import SpecificViewContext from 'context/SpecificViewContext';
 import {
   SectionTitle,
   MainWrapper,
-  Image,
   ImageMoreButton,
   ImageWrapper,
   ImagesWrapper,
+  GatsbyImage,
 } from './styles';
 
 const graphqlQuary = graphql`
@@ -26,13 +26,35 @@ const graphqlQuary = graphql`
         desc
       }
     }
+    allGallery {
+      nodes {
+        id
+        galleryId
+        myOwnImg {
+          childImageSharp {
+            fluid(maxWidth: 600, maxHeight: 600, fit: INSIDE) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
 const ImagesTemplate = () => {
+  const graphqlQueryData = useStaticQuery(graphqlQuary);
+
   const {
     swapi: { galleries },
-  } = useStaticQuery(graphqlQuary);
+  } = graphqlQueryData;
+
+  const {
+    allGallery: { nodes: galleryImages },
+  } = graphqlQueryData;
+
+  console.log(galleryImages);
+  console.log(galleries);
 
   const { setCurrentImageAndGalleries, currentImage } = useContext(
     SpecificViewContext
@@ -47,7 +69,13 @@ const ImagesTemplate = () => {
             key={id}
             onClick={() => setCurrentImageAndGalleries(index, galleries)}
           >
-            <Image imageURL={image.url} />
+            <GatsbyImage
+              fixed={
+                galleryImages.find((e) => e.galleryId === id).myOwnImg
+                  .childImageSharp.fluid
+              }
+              objectPosition="50% 50%"
+            />
             <ImageMoreButton>więcej</ImageMoreButton>
           </ImageWrapper>
         ))}

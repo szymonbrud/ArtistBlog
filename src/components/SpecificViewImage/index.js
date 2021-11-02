@@ -1,6 +1,8 @@
 /* eslint consistent-return: "off" */
 
 import React, { useState, useContext, useEffect } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
+
 import DeviceViewContext from 'context/DeviceViewContext';
 
 import TopBarMobile from 'components/TopBarMobile';
@@ -28,11 +30,33 @@ import {
   MobileNavButton,
 } from './styles';
 
+const graphqlQuary = graphql`
+  {
+    allGallery {
+      nodes {
+        id
+        galleryId
+        myOwnImg {
+          childImageSharp {
+            fluid(maxWidth: 600, maxHeight: 600, fit: INSIDE) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 const SpecificViewImage = () => {
   const devicesContext = useContext(DeviceViewContext);
   const { galleries, currentImage, close } = useContext(SpecificViewContext);
 
   const [currImg, setCurrImg] = useState(currentImage);
+
+  const {
+    allGallery: { nodes: galleryImages },
+  } = useStaticQuery(graphqlQuary);
 
   useEffect(() => {
     setCurrImg(currentImage);
@@ -53,24 +77,25 @@ const SpecificViewImage = () => {
   };
 
   const imageSize = () => {
-    if (
+    const isDesktop =
       devicesContext.deviceType === 'smallDesktop' ||
-      devicesContext.deviceType === 'largeDesktop'
-    ) {
-      const imgHeight = galleries[currImg].image.height;
-      const imgWidth = galleries[currImg].image.width;
+      devicesContext.deviceType === 'largeDesktop';
 
-      if (imgWidth / imgHeight > 1) {
-        return {
-          width: window.outerWidth * 0.45,
-          height: (window.outerWidth * 0.45) / (imgWidth / imgHeight),
-        };
-      }
+    const imgHeight = galleries[currImg].image.height;
+    const imgWidth = galleries[currImg].image.width;
+
+    if (imgWidth / imgHeight > 1) {
       return {
-        height: window.outerHeight * 0.6,
-        width: (window.outerHeight * 0.6) / (imgHeight / imgWidth),
+        width: window.outerWidth * (isDesktop ? 0.45 : 1),
+        height:
+          (window.outerWidth * (isDesktop ? 0.45 : 1)) / (imgWidth / imgHeight),
       };
     }
+    return {
+      height: window.outerHeight * (isDesktop ? 0.6 : 1),
+      width:
+        (window.outerHeight * (isDesktop ? 0.6 : 1)) / (imgHeight / imgWidth),
+    };
   };
 
   const closeByTarget = (event) =>
@@ -83,7 +108,14 @@ const SpecificViewImage = () => {
           <TopBarMobile />
           <TopBarDesktop />
           <DesktopPosstionWrapper onClick={closeByTarget}>
-            <Image src={galleries[currImg].image.url} style={imageSize()} />
+            <Image
+              fixed={
+                galleryImages.find((e) => e.galleryId === galleries[currImg].id)
+                  .myOwnImg.childImageSharp.fluid
+              }
+              objectPosition="50% 50%"
+              style={imageSize()}
+            />
             <TitleAndDescWrapper>
               <TitleDescPositionWrapper>
                 <Title>{galleries[currImg].title}</Title>

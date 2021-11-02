@@ -84,22 +84,22 @@ exports.sourceNodes = async ({
   store,
 }) => {
   // TODO: działa!
-  const pokemons = [
-    { name: 'Pikachu', type: 'electric' },
-    { name: 'Squirtle', type: 'water' },
-  ];
-  pokemons.forEach((pokemon) => {
-    const node = {
-      name: pokemon.name,
-      type: pokemon.type,
-      id: createNodeId(`Pokemon-${pokemon.name}`),
-      internal: {
-        type: 'Pokemon',
-        contentDigest: createContentDigest(pokemon),
-      },
-    };
-    actions.createNode(node);
-  });
+  // const pokemons = [
+  //   { name: 'Pikachu', type: 'electric' },
+  //   { name: 'Squirtle', type: 'water' },
+  // ];
+  // pokemons.forEach((pokemon) => {
+  //   const node = {
+  //     name: pokemon.name,
+  //     type: pokemon.type,
+  //     id: createNodeId(`Pokemon-${pokemon.name}`),
+  //     internal: {
+  //       type: 'Pokemon',
+  //       contentDigest: createContentDigest(pokemon),
+  //     },
+  //   };
+  //   actions.createNode(node);
+  // });
 
   // TODO: działa !
   const body = JSON.stringify({
@@ -108,6 +108,13 @@ exports.sourceNodes = async ({
         id
         title
         image{
+          url
+        }
+      }
+      galleries {
+        id
+        title
+        image {
           url
         }
       }
@@ -121,7 +128,7 @@ exports.sourceNodes = async ({
     data: body,
   });
 
-  const { posts } = await res.data.data;
+  const { posts, galleries } = await res.data.data;
 
   for (const post of posts) {
     try {
@@ -136,7 +143,7 @@ exports.sourceNodes = async ({
         },
       };
 
-      let fileNode = await createRemoteFileNode({
+      const fileNode = await createRemoteFileNode({
         url: post.image.url, // string that points to the URL of the image
         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
         createNode: actions.createNode, // helper function in gatsby-node to generate the node
@@ -153,7 +160,37 @@ exports.sourceNodes = async ({
     }
   }
 
-  // działa
+  // galleries
+
+  for (const gallery of galleries) {
+    try {
+      const node = {
+        url: gallery.image.url,
+        title: gallery.title,
+        galleryId: gallery.id,
+        id: createNodeId(`Gallery-${gallery.title}`),
+        internal: {
+          type: 'Gallery',
+          contentDigest: createContentDigest(gallery),
+        },
+      };
+
+      const fileNode = await createRemoteFileNode({
+        url: gallery.image.url, // string that points to the URL of the image
+        parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+        createNode: actions.createNode, // helper function in gatsby-node to generate the node
+        createNodeId, // helper function in gatsby-node to generate the node id
+        cache, // Gatsby's cache
+        store, // Gatsby's Redux store
+      });
+
+      node.myOwnImg___NODE = fileNode.id;
+
+      actions.createNode(node);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // for (const post of posts) {
   //   try {
