@@ -15,8 +15,8 @@ export const PostWrapper = styled.article`
     css`
       padding: 26px 20px;
       box-sizing: content-box;
-      position: relative;
-      left: -20px;
+      //position: relative;
+      //left: -20px;
     `}
 
   cursor: pointer;
@@ -52,14 +52,15 @@ export const ImageWrapper = styled.div`
   width: 100%;
   margin-bottom: 20px;
 
-  ${({ imageAspectRatio }) =>
+  ${({ imageAspectRatio, isSearchTemplate }) =>
     imageAspectRatio &&
     css`
       @media (min-width: 450px) {
         height: ${420 / imageAspectRatio}px;
       }
+
       ${media.tablet`
-      height: ${307 / imageAspectRatio}px;
+      height: ${(isSearchTemplate ? 420 : 307) / imageAspectRatio}px;
     `}
       ${media.smallDesktop`
       height: ${416 / imageAspectRatio}px;

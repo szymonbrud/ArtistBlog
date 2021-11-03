@@ -107,6 +107,7 @@ export const PostsWrapper = styled.section`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   ${media.tablet`
     width: 550px;

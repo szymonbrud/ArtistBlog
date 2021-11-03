@@ -29,6 +29,7 @@ const PostMobile = ({ postData, isSearchTemplate, image }) => {
         <ImageWrapper
           ref={imgWrapperRef}
           imageAspectRatio={image.myOwnImg.childImageSharp.fluid.aspectRatio}
+          isSearchTemplate={isSearchTemplate}
         >
           <GatsbyImage
             fixed={image.myOwnImg.childImageSharp.fluid}
